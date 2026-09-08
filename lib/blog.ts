@@ -1,4 +1,4 @@
-import { apiUrl } from "./config";
+import { apiEndpoint } from "./config";
 
 export type BlogPost = {
   title: string;
@@ -22,19 +22,32 @@ export type BlogPost = {
 };
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
-  const response = await fetch(`${apiUrl.replace(/\/$/, "")}/api/public/blog?size=50`, {
-    next: { revalidate: 300, tags: ["blog"] }
-  });
-  if (!response.ok) return [];
-  const data = (await response.json()) as { items?: BlogPost[] };
-  return data.items ?? [];
+  const endpoint = apiEndpoint("/api/public/blog?size=50");
+  if (!endpoint) return [];
+
+  try {
+    const response = await fetch(endpoint, {
+      next: { revalidate: 300, tags: ["blog"] }
+    });
+    if (!response.ok) return [];
+    const data = (await response.json()) as { items?: BlogPost[] };
+    return data.items ?? [];
+  } catch {
+    return [];
+  }
 }
 
 export async function getBlogPost(slug: string): Promise<BlogPost | null> {
-  const response = await fetch(`${apiUrl.replace(/\/$/, "")}/api/public/blog/${encodeURIComponent(slug)}`, {
-    next: { revalidate: 300, tags: [`blog:${slug}`] }
-  });
-  if (response.status === 404) return null;
-  if (!response.ok) throw new Error("Blog article could not be loaded");
-  return response.json() as Promise<BlogPost>;
+  const endpoint = apiEndpoint(`/api/public/blog/${encodeURIComponent(slug)}`);
+  if (!endpoint) return null;
+
+  try {
+    const response = await fetch(endpoint, {
+      next: { revalidate: 300, tags: [`blog:${slug}`] }
+    });
+    if (!response.ok) return null;
+    return response.json() as Promise<BlogPost>;
+  } catch {
+    return null;
+  }
 }

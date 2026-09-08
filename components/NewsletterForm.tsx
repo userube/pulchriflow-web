@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { apiUrl } from "../lib/config";
+import { browserApiEndpoint } from "../lib/config";
 
 export default function NewsletterForm({ source = "public-web" }: { source?: string }) {
   const [email, setEmail] = useState("");
@@ -10,13 +10,22 @@ export default function NewsletterForm({ source = "public-web" }: { source?: str
   async function subscribe(event: React.FormEvent) {
     event.preventDefault();
     setMessage("");
-    const response = await fetch(`${apiUrl.replace(/\/$/, "")}/newsletter/subscribe`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, source })
-    });
-    setMessage(response.ok ? "You're subscribed." : "Subscription could not be completed.");
-    if (response.ok) setEmail("");
+    const endpoint = browserApiEndpoint("/newsletter/subscribe");
+    if (!endpoint) {
+      setMessage("Subscription is not available right now.");
+      return;
+    }
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, source })
+      });
+      setMessage(response.ok ? "You're subscribed." : "Subscription could not be completed.");
+      if (response.ok) setEmail("");
+    } catch {
+      setMessage("Subscription could not be completed.");
+    }
   }
 
   return (

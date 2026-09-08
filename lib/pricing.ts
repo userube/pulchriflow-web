@@ -1,4 +1,4 @@
-import { apiUrl } from "./config";
+import { apiEndpoint } from "./config";
 
 export type PlanPrice = {
   plan: string;
@@ -9,12 +9,19 @@ export type PlanPrice = {
 };
 
 export async function getPublicPrices(): Promise<PlanPrice[]> {
-  const response = await fetch(`${apiUrl.replace(/\/$/, "")}/api/public/pricing`, {
-    next: { revalidate: 300, tags: ["pricing"] }
-  });
-  if (!response.ok) return [];
-  const data = (await response.json()) as { prices?: PlanPrice[] };
-  return data.prices ?? [];
+  const endpoint = apiEndpoint("/api/public/pricing");
+  if (!endpoint) return [];
+
+  try {
+    const response = await fetch(endpoint, {
+      next: { revalidate: 300, tags: ["pricing"] }
+    });
+    if (!response.ok) return [];
+    const data = (await response.json()) as { prices?: PlanPrice[] };
+    return data.prices ?? [];
+  } catch {
+    return [];
+  }
 }
 
 export function formatPrice(price?: PlanPrice) {
