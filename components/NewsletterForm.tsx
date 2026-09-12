@@ -30,8 +30,9 @@ export default function NewsletterForm({ source = "public-web" }: { source?: str
 
   return (
     <form className="newsletter" onSubmit={subscribe}>
-      <input value={email} onChange={(event) => setEmail(event.target.value)} type="email" required placeholder="Email address" />
-      <button className="button primary" type="submit">Subscribe</button>
+      <label className="sr-only" htmlFor={`newsletter-${source}`}>Email address</label>
+      <input id={`newsletter-${source}`} value={email} onChange={(event) => setEmail(event.target.value)} type="email" required placeholder="Email address" />
+      <button className="button button-primary" type="submit">Subscribe</button>
       {message && <p>{message}</p>}
     </form>
   );

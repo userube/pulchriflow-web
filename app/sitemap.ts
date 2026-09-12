@@ -3,7 +3,7 @@ import { getBlogPosts } from "../lib/blog";
 import { siteUrl } from "../lib/config";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const staticPages = ["", "/features", "/workflow", "/pricing", "/blog", "/privacy", "/terms", "/contact", "/press"].map((path) => ({
+  const staticPages = ["", "/quick-sale", "/online-store", "/checkout-links", "/invoices", "/receipts", "/features", "/workflow", "/pricing", "/blog", "/privacy", "/terms", "/contact", "/press"].map((path) => ({
     url: `${siteUrl}${path}`,
     lastModified: new Date()
   }));

@@ -1,22 +1,24 @@
 import Link from "next/link";
 import { appLink } from "../lib/config";
+import { footerNavigation } from "../lib/navigation";
+import BrandLogo from "./BrandLogo";
+import Container from "./Container";
 
 export default function Footer() {
   return (
-    <footer className="site-footer">
-      <div>
-        <strong>PulchriFlow</strong>
-        <p>Commerce without the chaos for WhatsApp and social sellers.</p>
-      </div>
-      <nav aria-label="Footer navigation">
-        <Link href="/features">Features</Link>
-        <Link href="/pricing">Pricing</Link>
-        <Link href="/blog">Blog</Link>
-        <a href={appLink("/login")}>Login</a>
-        <Link href="/privacy">Privacy</Link>
-        <Link href="/terms">Terms</Link>
-        <Link href="/contact">Contact</Link>
-      </nav>
+    <footer className="marketing-footer">
+      <Container>
+        <div className="marketing-footer-grid">
+          <div className="marketing-footer-intro">
+            <BrandLogo />
+            <a className="marketing-labs-link" href="https://pulchrilabs.vercel.app" target="_blank" rel="noreferrer">PulchriFlow by <strong>PulchriLabs</strong></a>
+          </div>
+          <nav aria-label="Product"><strong>Product</strong>{footerNavigation.product.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}</nav>
+          <nav aria-label="Company"><strong>Company</strong>{footerNavigation.company.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}</nav>
+          <nav aria-label="Legal"><strong>Legal</strong>{footerNavigation.legal.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}<a href={appLink("/login")}>Log in</a></nav>
+        </div>
+        <div className="marketing-footer-bottom"><span>© {new Date().getFullYear()} PulchriFlow</span><span>Every way you sell. One place to run it.</span></div>
+      </Container>
     </footer>
   );
 }

@@ -1,5 +1,5 @@
-import LandingPage from "../components/LandingPage";
+import DesignProof from "../components/DesignProof";
 
 export default function HomePage() {
-  return <LandingPage />;
+  return <DesignProof />;
 }

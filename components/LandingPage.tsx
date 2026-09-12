@@ -1,6 +1,19 @@
 import {
-  ArrowUpRight, Bot, CheckCircle2, ChevronDown, CreditCard, Globe2, Mail,
-  MessageCircle, Package, Rocket, ShoppingCart, Store, Users, X
+  ArrowRight,
+  ArrowUpRight,
+  Bot,
+  CheckCircle2,
+  ChevronDown,
+  CreditCard,
+  Globe2,
+  Mail,
+  MessageCircle,
+  ReceiptText,
+  Rocket,
+  Sparkles,
+  Store,
+  Users,
+  Zap
 } from "lucide-react";
 import Link from "next/link";
 import { appLink } from "../lib/config";
@@ -10,25 +23,87 @@ import BrandLogo from "./BrandLogo";
 const appParams = "utm_source,utm_medium,utm_campaign,utm_content,utm_term,ref,promo";
 const signup = (path = "/register") => ({ href: appLink(path), "data-preserve-params": appParams });
 
-function SpringScreenMock() {
+const features = [
+  [Store, "Storefront", "A shareable, branded shop link that looks built, not cobbled together."],
+  [CreditCard, "Payments", "Paystack-ready checkout and clean manual order tracking."],
+  [ReceiptText, "Invoices", "Receipts, order records, and checkout details in one place."],
+  [Users, "Customers", "Turn sales into follow-up friendly customer records."],
+  [Bot, "Pulchi", "Merchant intelligence that helps you see what matters fast."]
+] as const;
+
+const stats = ["Storefront", "Checkout links", "Invoices", "Orders", "Customers"];
+
+function DashboardPreview() {
   return (
-    <div className="screen-shell">
-      <div className="screen-topbar"><span /><span /><span /></div>
-      <div className="screen-grid">
-        <aside className="screen-sidebar">
-          <div className="mini-logo"><img src="/pulchriflow-logo.svg" alt="PulchriFlow" /></div>
-          <div className="side-line strong" /><div className="side-line" /><div className="side-line" /><div className="side-line short" />
+    <div className="pf-dashboard-preview" aria-label="PulchriFlow commerce dashboard preview">
+      <div className="pf-preview-topbar">
+        <div>
+          <span className="pf-window-dot" />
+          <span className="pf-window-dot" />
+          <span className="pf-window-dot" />
+        </div>
+        <strong>Bloom Beauty workspace</strong>
+        <span>Live</span>
+      </div>
+      <div className="pf-preview-body">
+        <aside className="pf-preview-sidebar">
+          <div className="pf-mini-brand"><img src="/pulchriflow-logo.svg" alt="" /></div>
+          {["Overview", "Orders", "Products", "Customers", "Payments"].map((item, index) => (
+            <span className={index === 0 ? "active" : ""} key={item}>{item}</span>
+          ))}
         </aside>
-        <div className="screen-content">
-          <div className="metrics-row">
-            <div className="metric-tile"><small>Today</small><strong>₦246k</strong></div>
-            <div className="metric-tile accent"><small>Orders</small><strong>38</strong></div>
-            <div className="metric-tile warm"><small>Customers</small><strong>812</strong></div>
+        <div className="pf-preview-main">
+          <div className="pf-preview-heading">
+            <div>
+              <small>Commerce overview</small>
+              <h3>Today&apos;s sales flow</h3>
+            </div>
+            <button><Sparkles size={16} /> Ask Pulchi</button>
           </div>
-          <div className="order-board">
-            {[["a1", "Ada Foods", "Paid"], ["a2", "Grace Fabrics", "Ready"], ["a3", "Bloom Beauty", "New"]].map(([a, n, s]) => (
-              <div className="order-row" key={a}><strong>{n}</strong><span>{s}</span></div>
+          <div className="pf-metric-grid">
+            {[
+              ["Revenue today", "₦246k", "+18%"],
+              ["Open orders", "38", "12 paid"],
+              ["Repeat buyers", "64%", "+9%"]
+            ].map(([label, value, note]) => (
+              <article key={label}>
+                <small>{label}</small>
+                <strong>{value}</strong>
+                <span>{note}</span>
+              </article>
             ))}
+          </div>
+          <div className="pf-commerce-grid">
+            <section className="pf-store-card">
+              <div className="pf-store-cover" />
+              <div className="pf-store-avatar">BB</div>
+              <h4>Bloom Beauty</h4>
+              <p>Skincare kits, oils, and weekend bundles.</p>
+              <div><span>Glow Starter Kit</span><strong>₦14,500</strong></div>
+              <div><span>Body Oil Duo</span><strong>₦9,800</strong></div>
+              <button>Open checkout</button>
+            </section>
+            <section className="pf-orders-card">
+              <div className="pf-card-title">
+                <strong>Orders moving now</strong>
+                <span>Auto-tracked</span>
+              </div>
+              {[
+                ["Ada Foods", "Paid", "₦42,000"],
+                ["Grace Fabrics", "Ready", "₦18,500"],
+                ["Bloom Beauty", "New", "₦9,800"]
+              ].map(([name, status, amount]) => (
+                <div className="pf-order-row" key={name}>
+                  <span>{name}</span>
+                  <b>{status}</b>
+                  <strong>{amount}</strong>
+                </div>
+              ))}
+              <div className="pf-assistant-note">
+                <Bot size={17} />
+                <p>Your Glow Starter Kit is leading revenue this week.</p>
+              </div>
+            </section>
           </div>
         </div>
       </div>
@@ -37,38 +112,182 @@ function SpringScreenMock() {
 }
 
 export default function LandingPage({ initialAnchor }: { initialAnchor?: "features" | "workflow" | "pricing" }) {
-  const proFeatures = ["1 storefront", "Unlimited products", "Up to 10 images per product", "WhatsApp checkout", "Advanced order management", "Customer management", "Analytics and growth insights", "Notifications", "Paystack checkout ready", "Remove PulchriFlow branding", "PWA access", "Custom domain support coming soon"];
   return (
-    <main className="landing-page spring-landing">
+    <main className="landing-page pf-redesign">
       <AnchorScroller target={initialAnchor} />
-      <header className="landing-nav">
+      <header className="landing-nav pf-nav">
         <Link className="brand-mark" href="/"><BrandLogo /></Link>
-        <nav className="nav-links"><a href="#features">Features</a><a href="#workflow">Workflow</a><Link href="/pricing">Pricing</Link></nav>
-        <div className="nav-actions"><a className="text-link" href={appLink("/login")}>Log in</a><a className="button button-primary" {...signup()}>Start free</a></div>
-      </header>
-      <section className="hero-section">
-        <div className="hero-content">
-          <p className="eyebrow">The commerce OS for social sellers</p>
-          <h1>Stop losing orders in <span className="flow-text">chats.</span></h1>
-          <p className="hero-copy">Create a beautiful storefront, receive orders, track customers, and manage your business from one simple platform.</p>
-          <div className="hero-actions">
-            <a className="button button-primary button-large" {...signup()}><Rocket size={18} />Start Free</a>
-            <a className="button button-secondary button-large" href={appLink("/shop/demo")}><Store size={18} />View Demo Store</a>
-          </div>
-          <div className="trust-row"><span><CheckCircle2 size={16} />No code storefront</span><span><CheckCircle2 size={16} />WhatsApp checkout</span><span><CheckCircle2 size={16} />Built for daily selling</span></div>
+        <nav className="nav-links">
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+        </nav>
+        <div className="nav-actions">
+          <a className="text-link" href={appLink("/login")}>Log in</a>
+          <a className="button button-primary" {...signup()}>Start free</a>
         </div>
-        <div className="hero-backdrop"><SpringScreenMock /></div>
-      </section>
-      <section className="proof-band" aria-label="PulchriFlow benefits"><span>Built for social media sellers</span><span>No card required</span><span>Start with 30 products free</span><span>Made for African businesses</span></section>
-      <section className="showcase-section"><div className="section-heading"><h2>Run your business from one clean dashboard</h2><p>Track revenue, orders, customers, and best-selling products without digging through chats.</p><ul className="showcase-bullets"><li><CheckCircle2 size={16} /> See paid, pending, and completed orders</li><li><CheckCircle2 size={16} /> Track customers and repeat buyers</li><li><CheckCircle2 size={16} /> Monitor revenue and top products</li></ul></div><div className="showcase-image"><img src="/dashboard-mock.png" alt="Merchant Dashboard" /></div></section>
-      <section className="signal-strip"><div><strong>Commerce OS</strong><span>Built for African SMEs and startups selling on social media, marketplaces, and storefront links.</span></div><div><strong>Sell clearly</strong><span>Products, checkout, and payment in one path.</span></div><div><strong>Operate better</strong><span>Orders and customers stay organized.</span></div></section>
-      <section id="comparison" className="content-section"><div className="comparison-layout"><div><div className="section-heading"><p className="eyebrow">Beyond WhatsApp Business</p><h2>Stop losing sales in chaotic chat threads.</h2></div><div className="comparison-cards"><article className="comparison-card comparison-card-muted"><div className="comparison-card-head"><span>Selling on WhatsApp alone</span></div><ul className="comparison-feature-list comparison-feature-list-muted"><li><X size={16} /> Answering &quot;How much is this?&quot; all day</li><li><X size={16} /> Scrolling through chats to find order details</li><li><X size={16} /> Manual payment confirmations</li><li><X size={16} /> Lost leads in noisy inboxes</li></ul></article><article className="comparison-card comparison-card-featured"><div className="comparison-card-head"><span>Selling with PulchriFlow</span></div><ul className="comparison-feature-list"><li><CheckCircle2 size={16} /> Customers see full catalog & prices instantly</li><li><CheckCircle2 size={16} /> Automated cart calculation and totals</li><li><CheckCircle2 size={16} /> Integrated Paystack or formatted WhatsApp orders</li><li><CheckCircle2 size={16} /> Clean dashboard to track paid vs pending orders</li></ul></article></div></div><div className="comparison-visual" aria-hidden="true"><div className="chat-stack"><span className="chat-bubble muted">How much?</span><span className="chat-bubble muted">Still available?</span><span className="chat-bubble muted">Paid, check receipt</span></div><div className="flow-card-mini"><div className="mini-card-head"><Store size={18} /><strong>PulchriFlow</strong></div><div className="mini-product-row"><Package size={18} /><span>Catalog</span><b>Live</b></div><div className="mini-product-row"><ShoppingCart size={18} /><span>Cart total</span><b>Auto</b></div><div className="mini-product-row"><CreditCard size={18} /><span>Payment</span><b>Tracked</b></div></div></div></div></section>
-      <section id="workflow" className="workflow-section"><div className="workflow-copy"><p className="eyebrow">A simpler sales workflow</p><h2>From product link to fulfilled order.</h2><p>PulchriFlow keeps every step connected, so customers buy smoothly and you always know what needs attention next.</p><a className="button button-primary" {...signup()}>Start selling <ArrowUpRight size={18} /></a></div><div className="workflow-list">{[["01", "Create your store", "Add your business details and make the storefront feel like your brand."], ["02", "Add products", "Keep prices, photos, and details in one clean catalog."], ["03", "Share your link", "Post it wherever customers find you."], ["04", "Receive orders", "Collect complete orders without the back-and-forth."], ["05", "Track customers", "Keep every order and customer relationship organized."]].map(([number, title, copy]) => <article className="workflow-step" key={number}><span>{number}</span><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div></section>
-      <section className="pulchi-section"><div className="pulchi-copy"><span className="pulchi-icon"><Bot size={26} /></span><p className="eyebrow">Meet Pulchi</p><h2>Your merchant assistant.</h2><p>Get clear answers about orders, customers, and products—without digging through reports.</p><span className="coming-pill">Coming soon</span></div><div className="pulchi-chat">{["How many orders did I receive today?", "Who are my best customers?", "What should I promote this week?"].map((q) => <div className="pulchi-question" key={q}>{q}<ArrowUpRight size={16} /></div>)}<div className="pulchi-answer"><Bot size={18} /><p>Your Adire Tote brought in 28% of revenue this week.</p></div></div></section>
-      <section id="pricing" className="pricing-section"><p className="eyebrow">Pricing</p><h2>Simple plans for WhatsApp and Instagram sellers.</h2><p>Start free, upgrade when you need more control, or let us help set everything up for you.</p><div className="pricing-grid"><article className="pricing-card"><div className="pricing-card-head"><strong>Free</strong></div><div className="pricing-price">₦0</div><strong>Start selling online for free</strong><p className="pricing-billing">per month</p><ul className="pricing-feature-list">{["1 storefront", "Up to 30 active products", "Up to 3 images per product", "WhatsApp checkout", "Manual transfer orders", "Public order tracking", "Basic order management", "PulchriFlow branding included"].map((item) => <li key={item}><CheckCircle2 size={16} />{item}</li>)}</ul><ul className="pricing-feature-list muted-list">{["No analytics", "No customer management", "No Paystack checkout", "No custom domain"].map((item) => <li key={item}><X size={16} />{item}</li>)}</ul><a className="button" {...signup()}>Create Free Store</a></article><article className="pricing-card featured"><div className="pricing-card-head"><strong>Pro Monthly</strong></div><div className="pricing-price">₦3,000</div><strong>For growing businesses</strong><p className="pricing-billing">per month</p><ul className="pricing-feature-list">{proFeatures.map((item) => <li key={item}><CheckCircle2 size={16} />{item}</li>)}</ul><a className="button button-primary" {...signup("/register?plan=pro-monthly")}>Upgrade to Pro</a></article><article className="pricing-card"><div className="pricing-card-head"><strong>Pro Quarterly</strong><small>Save ₦450</small></div><div className="pricing-price">₦8,550</div><strong>Save 5%</strong><p className="pricing-billing">every 3 months</p><ul className="pricing-feature-list">{proFeatures.map((item) => <li key={item}><CheckCircle2 size={16} />{item}</li>)}</ul><a className="button" {...signup("/register?plan=pro-quarterly")}>Choose Quarterly</a></article><article className="pricing-card"><div className="pricing-card-head"><strong>Pro Yearly</strong><small>Save ₦3,600</small></div><div className="pricing-price">₦32,400</div><strong>Save 10%</strong><p className="pricing-billing">per year</p><ul className="pricing-feature-list">{proFeatures.map((item) => <li key={item}><CheckCircle2 size={16} />{item}</li>)}</ul><a className="button" {...signup("/register?plan=pro-yearly")}>Choose Yearly</a></article></div></section>
-      <section id="features" className="content-section"><div className="section-heading"><p className="eyebrow">Why PulchriFlow</p><h2>Everything a business needs to start selling online.</h2></div><div className="feature-grid">{[[Store, "Public shop page", "Share one clean storefront link with your customers and let them browse active products."], [CreditCard, "Payment flow", "Connect Paystack subaccounts and move customers from order to payment without manual chasing."], [ShoppingCart, "Order dashboard", "Track new, paid, and fulfilled orders from a focused business workspace."], [Users, "Customer records", "Keep customer contacts, order history, and export-ready lists in one place."]].map(([Icon, title, text]) => { const I = Icon as typeof Store; return <article className="feature-card" key={title as string}><I size={28} /><h3>{title as string}</h3><p>{text as string}</p></article>; })}</div></section>
-      <section className="faq-section"><div className="section-heading"><p className="eyebrow">Questions, answered</p><h2>Start confidently.</h2></div><div className="faq-list">{[["Do I need technical skills?", "No. Add your products, set up your store, and share your link."], ["Can customers still order through WhatsApp?", "Yes. WhatsApp checkout stays part of the experience, with cleaner order details."], ["Can I start for free?", "Yes. Free includes a storefront, five products, sharing, manual transfer, and tracking."], ["Can I upgrade later?", "Upgrade when you need unlimited products, CRM, analytics, or branding removal."]].map(([q, a]) => <details key={q}><summary>{q}<ChevronDown size={18} /></summary><p>{a}</p></details>)}</div></section>
-      <footer className="landing-footer"><div className="landing-footer-cta"><div><span className="footer-kicker">Your next sale starts here</span><h2>Turn conversations into a business that flows.</h2></div><a {...signup()} className="button primary">Create your free store <ArrowUpRight size={18} /></a></div><div className="landing-footer-grid"><div className="footer-brand-column"><BrandLogo /><p>The commerce workspace for African businesses selling through WhatsApp, Instagram, and everywhere their customers are.</p><div className="footer-socials" aria-label="Social links"><a href="mailto:hello@pulchriflow.com" aria-label="Email PulchriFlow"><Mail size={18} /></a><a href={appLink("/shop/demo")} aria-label="Explore the PulchriFlow demo store"><Globe2 size={18} /></a><a href={appLink("/orders/lookup")} aria-label="Open order support"><MessageCircle size={18} /></a></div></div><div className="footer-link-column"><strong>Product</strong><a href="#features">Features</a><a href="#workflow">Workflow</a><Link href="/pricing">Pricing</Link><a href={appLink("/shop/demo")}>Demo store</a></div><div className="footer-link-column"><strong>Get started</strong><a {...signup()}>Create an account</a><a href={appLink("/login")}>Merchant login</a><a href={appLink("/orders/lookup")}>Track an order</a></div><div className="footer-link-column"><strong>Legal</strong><Link href="/privacy">Privacy Policy</Link><Link href="/terms">Terms &amp; Conditions</Link><a href="mailto:support@pulchriflow.com">Contact</a></div><div className="footer-note"><span className="footer-status-dot" /><div><strong>Built for the way Africa sells</strong><p>Simple tools. Local context. Serious growth.</p></div></div></div><div className="landing-footer-bottom"><span>© PulchriLabs. All rights reserved.</span><span>Built and operated by PulchriLabs.</span></div></footer>
+      </header>
+
+      <div className="pf-shell">
+        <div className="pf-content">
+        <section className="pf-hero">
+          <div className="pf-hero-copy">
+            <span className="pf-kicker"><Zap size={16} /> Built for social commerce</span>
+            <h1>PulchriFlow</h1>
+            <p className="pf-hero-tag">Commerce OS for African SMEs</p>
+            <p className="pf-hero-lede">The commerce OS that turns WhatsApp and Instagram conversations into storefronts, orders, payments, customers, and repeat sales.</p>
+            <div className="pf-hero-actions">
+              <a className="button button-primary button-large" {...signup()}><Rocket size={18} /> Create free store</a>
+              <a className="button button-secondary button-large" href={appLink("/shop/demo")}><Store size={18} /> View demo store</a>
+            </div>
+            <div className="pf-trust-row">
+              <span><CheckCircle2 size={16} /> No code</span>
+              <span><CheckCircle2 size={16} /> Paystack-ready</span>
+              <span><CheckCircle2 size={16} /> Made for African SMEs</span>
+            </div>
+          </div>
+          <DashboardPreview />
+        </section>
+
+        <section id="features" className="pf-section">
+          <div className="pf-section-heading">
+            <span className="pf-kicker">One workspace</span>
+            <h2>Everything that used to live across chats, notes, and receipts.</h2>
+            <p>PulchriFlow gives small businesses the operating layer they need after customers say “I want this.”</p>
+          </div>
+          <div className="pf-feature-grid">
+            {features.map(([Icon, title, text]) => (
+              <article className="pf-feature-card" key={title}>
+                <Icon size={24} />
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="pf-showcase">
+          <div>
+            <span className="pf-kicker">Live storefront + back office</span>
+            <h2>Show customers the store. Run the business behind it.</h2>
+            <p>Customers browse products and place complete orders while you manage status, payments, customers, and follow-ups from a focused dashboard.</p>
+            <ul>
+              <li><CheckCircle2 size={17} /> Public shop pages that feel credible.</li>
+              <li><CheckCircle2 size={17} /> Complete order details before you reply.</li>
+              <li><CheckCircle2 size={17} /> Customer records created from sales activity.</li>
+            </ul>
+          </div>
+          <div className="pf-device-stack">
+            <img src="/dashboard-mock.png" alt="PulchriFlow merchant dashboard" />
+            <img src="/storefront-mock.png" alt="PulchriFlow storefront preview" />
+          </div>
+        </section>
+
+        <section className="pf-pulchi">
+          <div>
+            <span className="pf-kicker"><Bot size={16} /> Pulchi assistant</span>
+            <h2>Ask what needs attention before the day runs away.</h2>
+            <p>Pulchi brings merchant intelligence into the same place you already manage products, orders, and customers.</p>
+            <span className="pf-coming">Coming soon</span>
+          </div>
+          <div className="pf-chat-card">
+            {["What sold best this week?", "Which customers should I follow up with?", "What orders are unpaid?"].map((item) => (
+              <button key={item}>{item}<ArrowUpRight size={15} /></button>
+            ))}
+            <div><Sparkles size={18} /><p>Your skincare bundles drove 28% of weekly revenue. Promote them again this weekend.</p></div>
+          </div>
+        </section>
+
+        <section className="pf-stat-band" aria-label="PulchriFlow summary">
+          {stats.map((item) => <span key={item}>{item}</span>)}
+        </section>
+
+        <section id="pricing" className="pf-pricing">
+          <div className="pf-section-heading">
+            <span className="pf-kicker">Pricing</span>
+            <h2>Start free. Upgrade when your shop needs more control.</h2>
+            <p>Simple plans for WhatsApp and Instagram sellers building a real online business.</p>
+          </div>
+          <div className="pf-price-grid">
+            <article>
+              <strong>Free</strong>
+              <h3>₦0</h3>
+              <p>Launch your first storefront and start receiving organized orders.</p>
+              <a className="button button-secondary" {...signup()}>Create free store</a>
+            </article>
+            <article className="featured">
+              <strong>Pro Monthly</strong>
+              <h3>₦3,000</h3>
+              <p>Unlock unlimited products, analytics, customer management, Paystack checkout, and branding removal.</p>
+              <a className="button button-primary" {...signup("/register?plan=pro-monthly")}>Choose Pro <ArrowRight size={17} /></a>
+            </article>
+            <article>
+              <strong>Done-for-you</strong>
+              <h3>Setup help</h3>
+              <p>Get hands-on support to move your products, polish your store, and go live quickly.</p>
+              <a className="button button-secondary" href="mailto:hello@pulchriflow.com">Talk to us</a>
+            </article>
+          </div>
+        </section>
+
+        <section className="pf-faq">
+          <div className="pf-section-heading">
+            <span className="pf-kicker">Questions</span>
+            <h2>Built for the way you already sell.</h2>
+          </div>
+          <div>
+            {[
+              ["Do I need a website already?", "No. PulchriFlow gives you a shareable storefront link out of the box."],
+              ["Can customers still use WhatsApp?", "Yes. WhatsApp stays part of the flow, but product details and orders become cleaner."],
+              ["Can I accept online payments?", "Yes. Pro merchants can use Paystack checkout while free stores can still manage manual orders."],
+              ["Is Pulchi the whole product?", "No. Pulchi is an assistant inside a full commerce workspace."]
+            ].map(([q, a]) => (
+              <details key={q}>
+                <summary>{q}<ChevronDown size={18} /></summary>
+                <p>{a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <footer className="landing-footer pf-footer">
+          <div className="pf-footer-cta">
+            <div>
+              <span className="pf-kicker">Your next sale starts here</span>
+              <h2>Turn conversations into a business that flows.</h2>
+            </div>
+            <a {...signup()} className="button button-primary">Create your free store <ArrowUpRight size={18} /></a>
+          </div>
+          <div className="pf-footer-grid">
+            <div>
+              <BrandLogo />
+              <p>The commerce workspace for African businesses selling through WhatsApp, Instagram, and everywhere their customers are.</p>
+            </div>
+            <nav>
+              <strong>Product</strong>
+              <a href="#features">Features</a>
+              <a href="#pricing">Pricing</a>
+              <a href={appLink("/shop/demo")}>Demo store</a>
+            </nav>
+            <nav>
+              <strong>Get started</strong>
+              <a {...signup()}>Create an account</a>
+              <a href={appLink("/login")}>Merchant login</a>
+              <a href={appLink("/orders/lookup")}>Track an order</a>
+            </nav>
+            <nav>
+              <strong>Contact</strong>
+              <a href="mailto:hello@pulchriflow.com"><Mail size={16} /> Email</a>
+              <a href={appLink("/shop/demo")}><Globe2 size={16} /> Demo store</a>
+              <a href={appLink("/orders/lookup")}><MessageCircle size={16} /> Support</a>
+            </nav>
+          </div>
+          <div className="pf-footer-bottom">
+            <span>© PulchriLabs. All rights reserved.</span>
+            <span>Built and operated by PulchriLabs.</span>
+          </div>
+        </footer>
+        </div>
+      </div>
     </main>
   );
 }

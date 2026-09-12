@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import LandingPage from "../../components/LandingPage";
+import { WorkflowStoryPage } from "../../components/StoryPages";
 
 export const metadata: Metadata = {
   title: "Workflow",
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function WorkflowPage() {
-  return <LandingPage initialAnchor="workflow" />;
+  return <WorkflowStoryPage />;
 }
