@@ -33,7 +33,7 @@ export function PricingStoryPage({ prices }: { prices: PlanPrice[] }) {
     "Quick Sale, checkout links, invoices and receipts",
     "WhatsApp checkout and advanced order management",
     "Customer management and analytics",
-    "Pulchi business assistant and notifications",
+    "Sabi business assistant and notifications",
     "PWA access and remove PulchriFlow branding",
     "Premium store themes",
     "Paystack checkout",

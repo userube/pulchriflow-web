@@ -1,7 +1,6 @@
 import {
   ArrowRight,
   ArrowUpRight,
-  Bot,
   CheckCircle2,
   ChevronDown,
   CreditCard,
@@ -28,7 +27,7 @@ const features = [
   [CreditCard, "Payments", "Paystack-ready checkout and clean manual order tracking."],
   [ReceiptText, "Invoices", "Receipts, order records, and checkout details in one place."],
   [Users, "Customers", "Turn sales into follow-up friendly customer records."],
-  [Bot, "Pulchi", "Merchant intelligence that helps you see what matters fast."]
+  [Sparkles, "Sabi", "Your AI business assistant for the work that needs attention."]
 ] as const;
 
 const stats = ["Storefront", "Checkout links", "Invoices", "Orders", "Customers"];
@@ -58,7 +57,7 @@ function DashboardPreview() {
               <small>Commerce overview</small>
               <h3>Today&apos;s sales flow</h3>
             </div>
-            <button><Sparkles size={16} /> Ask Pulchi</button>
+            <button><Sparkles size={16} /> Ask Sabi</button>
           </div>
           <div className="pf-metric-grid">
             {[
@@ -100,7 +99,7 @@ function DashboardPreview() {
                 </div>
               ))}
               <div className="pf-assistant-note">
-                <Bot size={17} />
+                <Sparkles size={17} />
                 <p>Your Glow Starter Kit is leading revenue this week.</p>
               </div>
             </section>
@@ -184,9 +183,9 @@ export default function LandingPage({ initialAnchor }: { initialAnchor?: "featur
 
         <section className="pf-pulchi">
           <div>
-            <span className="pf-kicker"><Bot size={16} /> Pulchi assistant</span>
+            <span className="pf-kicker"><Sparkles size={16} /> Sabi by Pulchri</span>
             <h2>Ask what needs attention before the day runs away.</h2>
-            <p>Pulchi brings merchant intelligence into the same place you already manage products, orders, and customers.</p>
+            <p>Sabi is your AI business assistant inside PulchriFlow, helping you understand orders, customers, products, and sales from the same workspace.</p>
             <span className="pf-coming">Coming soon</span>
           </div>
           <div className="pf-chat-card">
@@ -239,7 +238,7 @@ export default function LandingPage({ initialAnchor }: { initialAnchor?: "featur
               ["Do I need a website already?", "No. PulchriFlow gives you a shareable storefront link out of the box."],
               ["Can customers still use WhatsApp?", "Yes. WhatsApp stays part of the flow, but product details and orders become cleaner."],
               ["Can I accept online payments?", "Yes. Pro merchants can use Paystack checkout while free stores can still manage manual orders."],
-              ["Is Pulchi the whole product?", "No. Pulchi is an assistant inside a full commerce workspace."]
+              ["Is Sabi the whole product?", "No. Sabi is the intelligent business assistant inside the full PulchriFlow commerce workspace."]
             ].map(([q, a]) => (
               <details key={q}>
                 <summary>{q}<ChevronDown size={18} /></summary>

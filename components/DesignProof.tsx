@@ -64,7 +64,7 @@ function WholesalePreview() {
 }
 
 function PulchiPreview() {
-  return <div className="pulchi-preview"><div className="pulchi-head"><span>Pulchi</span><small>Business intelligence</small></div><p>“How much did I sell this week?”</p><article><CircleCheck size={18} /><div><strong>Your sales and order activity are ready to review.</strong><small>Ask about sales, top products, customers, and products that need attention.</small></div></article><div className="pulchi-prompts"><span>Top products</span><span>Best customers</span><span>What needs attention?</span></div></div>;
+  return <div className="pulchi-preview"><div className="pulchi-head"><span>Sabi</span><small>Your AI business assistant</small></div><p>“How much did I sell this week?”</p><article><CircleCheck size={18} /><div><strong>Your sales and order activity are ready to review.</strong><small>Ask about sales, top products, customers, and products that need attention.</small></div></article><div className="pulchi-prompts"><span>Top products</span><span>Best customers</span><span>What needs attention?</span></div></div>;
 }
 
 export default function DesignProof() {
@@ -100,7 +100,7 @@ export default function DesignProof() {
 
         <section className="story-section story-unified"><div className="marketing-container"><div className="story-intro"><p className="proof-eyebrow"><span /> ONE BUSINESS</p><h2>Different ways to sell.<br />One business underneath.</h2><p>Counter sales, payment links, and storefront orders all come back to the same customers, orders, and business record.</p></div><VisibilityPreview /></div></section>
 
-        <section className="story-section story-pulchi"><div className="marketing-container story-split"><div className="story-copy"><p className="proof-eyebrow"><span /> BUSINESS VISIBILITY</p><h2>Now, understand your business.</h2><p>Once sales, orders, customers, and products live in one place, Pulchi helps you ask better questions about what is happening.</p></div><PulchiPreview /></div></section>
+        <section className="story-section story-pulchi"><div className="marketing-container story-split"><div className="story-copy"><p className="proof-eyebrow"><span /> BUSINESS VISIBILITY</p><h2>Now, understand your business.</h2><p>Once sales, orders, customers, and products live in one place, Sabi helps you ask better questions about what is happening.</p></div><PulchiPreview /></div></section>
 
         <section className="story-section story-updates"><div className="marketing-container updates-wrap"><div className="updates-copy"><p className="proof-eyebrow"><span /> WHAT&apos;S NEW</p><h2>A product that keeps moving with your business.</h2><p>Follow new PulchriFlow tools, improvements, and practical ways to make the daily work of selling feel lighter.</p><Link href="/blog">See product updates <ArrowRight size={16} /></Link></div><div className="updates-panel"><span className="updates-date">PULCHRIFLOW JOURNAL</span><strong>Practical resources for selling with more clarity.</strong><p>Guides for payments, customer follow-up, storefronts, and daily operations.</p><Link href="/blog">Explore resources <ArrowRight size={16} /></Link></div></div></section>
 
