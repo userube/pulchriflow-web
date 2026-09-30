@@ -203,20 +203,20 @@ export default function LandingPage({ initialAnchor }: { initialAnchor?: "featur
         <section id="pricing" className="pf-pricing">
           <div className="pf-section-heading">
             <span className="pf-kicker">Pricing</span>
-            <h2>Start free. Upgrade when your shop needs more control.</h2>
-            <p>Simple plans for WhatsApp and Instagram sellers building a real online business.</p>
+            <h2>Start selling before you pay.</h2>
+            <p>Your first 10 orders are on us. Upgrade to Pro when your store is working and ready for more.</p>
           </div>
           <div className="pf-price-grid">
             <article>
               <strong>Free</strong>
               <h3>₦0</h3>
-              <p>Launch your first storefront and start receiving organized orders.</p>
-              <a className="button button-secondary" {...signup()}>Create free store</a>
+              <p>Create your store, add products, share your link and receive your first 10 orders for free.</p>
+              <a className="button button-secondary" {...signup()}>Start selling free</a>
             </article>
             <article className="featured">
               <strong>Pro Monthly</strong>
-              <h3>₦3,000</h3>
-              <p>Unlock unlimited products, analytics, customer management, Paystack checkout, and branding removal.</p>
+              <h3><s>₦6,000</s> ₦3,000</h3>
+              <p>Keep selling without limits with analytics, customer management, Paystack checkout, and branding removal.</p>
               <a className="button button-primary" {...signup("/register?plan=pro-monthly")}>Choose Pro <ArrowRight size={17} /></a>
             </article>
             <article>
@@ -236,6 +236,10 @@ export default function LandingPage({ initialAnchor }: { initialAnchor?: "featur
           <div>
             {[
               ["Do I need a website already?", "No. PulchriFlow gives you a shareable storefront link out of the box."],
+              ["Is PulchriFlow free?", "Yes. You can create your store and receive your first 10 orders for free. After your first 10 orders, you'll need PulchriFlow Pro to continue accepting new orders."],
+              ["What happens after my 10th order?", "Your store and existing data remain available. You'll need to upgrade to Pro before accepting additional new orders."],
+              ["How much is Pro?", "PulchriFlow Pro normally costs ₦6,000/month. It's currently available for ₦3,000/month as a promotional offer."],
+              ["Will I lose my existing orders if I don't upgrade?", "No. Your previous orders and store data remain available."],
               ["Can customers still use WhatsApp?", "Yes. WhatsApp stays part of the flow, but product details and orders become cleaner."],
               ["Can I accept online payments?", "Yes. Pro merchants can use Paystack checkout while free stores can still manage manual orders."],
               ["Is Sabi the whole product?", "No. Sabi is the intelligent business assistant inside the full PulchriFlow commerce workspace."]

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Check, CircleCheck, CreditCard, FileText, Link2, ShoppingBag, Store, Users } from "lucide-react";
 import { appLink } from "../lib/config";
 import type { PlanPrice } from "../lib/pricing";
-import { formatPrice } from "../lib/pricing";
+import { formatPrice, formatStandardPrice } from "../lib/pricing";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -27,51 +27,52 @@ export function PricingStoryPage({ prices }: { prices: PlanPrice[] }) {
   const pro = prices.find((price) => price.plan.includes("MONTHLY")) ?? prices[0];
   const quarterly = prices.find((price) => price.plan.includes("QUARTERLY"));
   const yearly = prices.find((price) => price.plan.includes("YEARLY"));
+  const proPrice = pro ? formatPrice(pro) : "₦3,000";
+  const proRegularPrice = formatStandardPrice(pro);
   const proBenefits = [
-    "One storefront and social sharing",
-    "Unlimited products and up to 10 images per product",
-    "Quick Sale, checkout links, invoices and receipts",
-    "WhatsApp checkout and advanced order management",
+    "Unlimited orders",
+    "Everything in Free",
     "Customer management and analytics",
-    "Sabi business assistant and notifications",
-    "PWA access and remove PulchriFlow branding",
-    "Premium store themes",
-    "Paystack checkout",
-    "Custom domain included"
+    "Advanced order management",
+    "Store management features",
+    "Custom domain",
+    "Remove PulchriFlow branding",
+    "Sabi business assistant and notifications"
   ];
   const plans = [
     {
-      name: "Start Selling",
-      billing: "Free plan",
+      name: "Free",
+      billing: "Start selling before you pay.",
       price: free ? formatPrice(free) : "₦0",
-      copy: "Everything you need to begin selling and keep each sale organised.",
+      copy: "Your first 10 orders are on us. Build your store, share your link and experience PulchriFlow with real customers.",
       benefits: [
-        "One storefront and social sharing",
-        "Up to 30 active products",
-        "Up to 3 images per product",
+        "Your own online storefront",
+        "Add and manage products",
+        "WhatsApp checkout",
+        "Online checkout where supported",
+        "Order management",
         "Quick Sale, checkout links, invoices and receipts",
-        "WhatsApp checkout and manual transfer orders",
-        "Paystack checkout",
-        "Basic order management and public order tracking",
-        "Custom domain support",
-        "PulchriFlow branding included"
+        "First 10 orders free"
       ],
-      cta: "Start Free",
+      cta: "Start selling free",
+      note: "No card required.",
       href: appLink("/register")
     },
     {
-      name: "Grow Steadily",
-      billing: "Billed monthly",
-      price: pro ? formatPrice(pro) : "₦3,000",
-      copy: "For businesses ready for deeper visibility, control and a more tailored store.",
+      name: "Pro",
+      billing: "Most popular",
+      regularPrice: proRegularPrice,
+      saving: "50% promotional offer",
+      price: proPrice,
+      copy: "Keep selling without limits.",
       benefits: proBenefits,
-      cta: "Choose Monthly",
+      cta: "Upgrade to Pro",
+      note: `Current promotional price. Regular price ${proRegularPrice}/month.`,
       href: appLink("/register?plan=pro-monthly")
     },
     {
       name: "Build Momentum",
       billing: "Every 3 months",
-      saving: "Save ₦450 · 5% off",
       price: quarterly ? formatPrice(quarterly) : "₦8,550",
       copy: "The same Pro tools, with a little more room to focus on the business.",
       benefits: proBenefits,
@@ -81,7 +82,6 @@ export function PricingStoryPage({ prices }: { prices: PlanPrice[] }) {
     {
       name: "Go Further",
       billing: "Billed yearly",
-      saving: "Save ₦3,600 · 10% off",
       price: yearly ? formatPrice(yearly) : "₦32,400",
       copy: "The full Pro toolkit for businesses building for the long run.",
       benefits: proBenefits,
@@ -90,5 +90,5 @@ export function PricingStoryPage({ prices }: { prices: PlanPrice[] }) {
     }
   ];
 
-  return <div className="proof-page story-page"><Header /><main><PageHero eyebrow="SIMPLE PRICING" title="Start where you are. Grow when you need more." copy="Start free with the ways you already sell. Every paid option includes the same Pro toolkit; choose the billing rhythm that fits your business." /><section className="pricing-story"><div className="marketing-container">{plans.map((plan, index) => <article className={index === 2 ? "featured" : ""} key={plan.name}><p>{plan.name}</p><small className="pricing-plan-billing">{plan.billing}</small><h2>{plan.price}</h2>{plan.saving && <strong className="pricing-plan-saving">{plan.saving}</strong>}<span>{plan.copy}</span><ul>{plan.benefits.map((item) => <li key={item}><CircleCheck size={17} />{item}</li>)}</ul><a className={index === 2 ? "proof-button proof-button-primary" : "proof-button proof-button-secondary"} href={plan.href}>{plan.cta} <ArrowRight size={16} /></a></article>)}</div></section><section className="story-final"><div className="marketing-container"><p className="proof-eyebrow"><span /> PULCHRIFLOW</p><h2>Start selling with a clearer record of the business.</h2>{cta}</div></section></main><Footer /></div>;
+  return <div className="proof-page story-page"><Header /><main><PageHero eyebrow="SIMPLE PRICING" title="Start selling before you pay." copy="Create your store for free. Upgrade only after you've received your first 10 orders." /><section className="pricing-story"><div className="marketing-container">{plans.map((plan, index) => <article className={index === 1 ? "featured" : ""} key={plan.name}><p>{plan.name}</p><small className="pricing-plan-billing">{plan.billing}</small>{plan.regularPrice && <small className="pricing-plan-billing"><s>{plan.regularPrice}</s></small>}<h2>{plan.price}<small>{index === 1 ? " / month" : ""}</small></h2>{plan.saving && <strong className="pricing-plan-saving">{plan.saving}</strong>}<span>{plan.copy}</span><ul>{plan.benefits.map((item) => <li key={item}><CircleCheck size={17} />{item}</li>)}</ul><a className={index === 1 ? "proof-button proof-button-primary" : "proof-button proof-button-secondary"} href={plan.href}>{plan.cta} <ArrowRight size={16} /></a>{plan.note && <small className="pricing-plan-billing">{plan.note}</small>}</article>)}</div></section><section className="story-final"><div className="marketing-container"><p className="proof-eyebrow"><span /> PULCHRIFLOW</p><h2>Start selling with a clearer record of the business.</h2>{cta}</div></section></main><Footer /></div>;
 }
