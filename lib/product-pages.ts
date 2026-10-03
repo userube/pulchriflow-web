@@ -53,5 +53,50 @@ export const productPages = {
     workflow: ["Complete or record the sale", "Generate the receipt from the transaction", "Return to the record whenever you need it"],
     benefits: ["Receipts attached to the sale", "A clearer history for you and the customer", "Less manual record keeping after the payment"],
     faq: [["Are receipts tied to completed payments?", "Receipts are created from the recorded sale or invoice payment."], ["Can I find past receipts?", "Yes. Receipts are available from the merchant commerce area."]]
+  },
+  restaurants: {
+    title: "Restaurants",
+    description: "Run menu sales, dine-in orders, QR table flows, staff handoff, kitchen preparation, and pay-after-eating from one PulchriFlow workspace.",
+    eyebrow: "DINE-IN AND MENU COMMERCE",
+    situation: "Restaurant work moves quickly. PulchriFlow keeps menu items, tables, staff, customer orders, kitchen flow, and payment records connected without creating a separate product for restaurants.",
+    workflow: ["Build a menu-style catalog", "Take dine-in, pickup, or online orders", "Move orders through kitchen, waiter, payment, and receipt"],
+    benefits: ["One platform for table, menu, order, customer, and payment records", "QR and waiter-ready flows designed to plug into the same dashboard", "Pay-after-eating support without duplicating storefront logic"],
+    faq: [["Is this a separate restaurant app?", "No. Restaurants use PulchriFlow capabilities configured for dine-in and food workflows."], ["Can a restaurant still sell online?", "Yes. Storefront, orders, payments, customers, and receipts remain part of the same platform."]]
+  },
+  supermarkets: {
+    title: "Supermarkets",
+    description: "Support grocery catalog sales, repeat baskets, picking, packing, inventory, delivery, and customer records in PulchriFlow.",
+    eyebrow: "GROCERY FULFILMENT",
+    situation: "Grocery orders need more than a cart. Teams need to know what to pick, what is packed, what is unavailable, and what should be saved for the next shop.",
+    workflow: ["List grocery items and categories", "Receive baskets and repeat orders", "Coordinate picking, packing, inventory, delivery, and receipts"],
+    benefits: ["Saved baskets for repeat grocery journeys", "Inventory-aware fulfilment that fits supermarket operations", "Customer and order records kept with every basket"],
+    faq: [["Does PulchriFlow support saved baskets?", "Yes. Saved Items are built to support repeat baskets and other reusable customer journeys."], ["Is supermarket fulfilment separate from orders?", "No. Picking, packing, inventory, delivery, payments, and receipts plug into the same commerce record."]]
+  },
+  "service-businesses": {
+    title: "Service Businesses",
+    description: "Sell services with prices, images, descriptions, customer instructions, checkout, quotes, invoices, saved favourites, and repeat journeys.",
+    eyebrow: "SERVICE COMMERCE",
+    situation: "Tailors, salons, laundries, travel agencies, and other service businesses need a storefront that does not pretend every offer is stock on a shelf.",
+    workflow: ["Create services instead of stocked products", "Share service pages, checkout links, quotes, or invoices", "Save customer preferences for faster repeat work"],
+    benefits: ["No-stock service catalog items with service-ready wording", "Favourite services and saved journeys for returning customers", "Orders, payments, invoices, customers, and receipts in one workspace"],
+    faq: [["Can I sell a service without stock?", "Yes. Services are catalog items with no inventory decrement."], ["Can customers save favourite services?", "Yes. Saved Items supports favourite services and other repeat journeys."]]
+  },
+  retail: {
+    title: "Retail",
+    description: "Create a polished online store for products, checkout links, invoices, payments, customers, receipts, and repeat sales.",
+    eyebrow: "PRODUCT COMMERCE",
+    situation: "Retail merchants need a credible storefront, simple catalog management, flexible payment paths, and a record of what each customer bought.",
+    workflow: ["Add products, images, prices, stock, and categories", "Share storefront pages or checkout links", "Track orders, payments, receipts, and customer history"],
+    benefits: ["Product catalog and storefront built for everyday selling", "Quick Sale, checkout links, invoices, receipts, and customer records together", "A path to service, restaurant, or supermarket capabilities later"],
+    faq: [["Can I switch from retail later?", "Yes. PulchriFlow business templates can change while preserving existing records."], ["Does retail support manual and online payments?", "Yes. Merchants can use manual records and Paystack-ready checkout where configured."]]
+  },
+  "saved-items": {
+    title: "Saved Items",
+    description: "Save repeat customer journeys like favourite services, saved baskets, saved meals, trips, laundry schedules, and reusable orders.",
+    eyebrow: "REPEAT JOURNEYS",
+    situation: "Many customers buy or request the same thing again. PulchriFlow turns those patterns into saved journeys instead of scattered notes.",
+    workflow: ["Save a customer journey from a service, basket, meal, trip, or schedule", "Retrieve it when the customer returns", "Reuse the details for faster checkout, quote, invoice, or follow-up"],
+    benefits: ["Favourite services for salons, tailors, and service businesses", "Saved baskets for supermarkets and grocery runs", "A reusable foundation for reminders, bookings, appointments, and customer hub experiences"],
+    faq: [["Is this only saved orders?", "No. Saved Items is a reusable engine for multiple business journeys, not just previous orders."], ["Can it support future reminders?", "Yes. It is structured so reminders and repeat workflows can build on top later."]]
   }
 } satisfies Record<string, ProductPageContent>;
