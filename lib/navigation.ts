@@ -11,7 +11,8 @@ export const footerNavigation = {
     ...marketingNavigation,
     { href: "/restaurants", label: "Restaurants" },
     { href: "/supermarkets", label: "Supermarkets" },
-    { href: "/saved-items", label: "Saved Items" }
+    { href: "/saved-items", label: "Saved Items" },
+    { href: "/customer-hub", label: "Customer Hub" }
   ],
   company: [
     { href: "/press", label: "Press" },

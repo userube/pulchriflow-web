@@ -98,5 +98,14 @@ export const productPages = {
     workflow: ["Save a customer journey from a service, basket, meal, trip, or schedule", "Retrieve it when the customer returns", "Reuse the details for faster checkout, quote, invoice, or follow-up"],
     benefits: ["Favourite services for salons, tailors, and service businesses", "Saved baskets for supermarkets and grocery runs", "A reusable foundation for reminders, bookings, appointments, and customer hub experiences"],
     faq: [["Is this only saved orders?", "No. Saved Items is a reusable engine for multiple business journeys, not just previous orders."], ["Can it support future reminders?", "Yes. It is structured so reminders and repeat workflows can build on top later."]]
+  },
+  "customer-hub": {
+    title: "Customer Hub",
+    description: "Give customers one clear place to return for orders, saved items, favourite businesses, appointments, bookings, addresses, and reminders.",
+    eyebrow: "CUSTOMER EXPERIENCE",
+    situation: "Customers should not have to search through old chats to find an order, saved service, basket, address, booking, or reminder. Customer Hub gives repeat buyers a cleaner way back into the business.",
+    workflow: ["Give customers one place to return", "Organize orders, saved items, favourites, addresses, appointments, bookings, and reminders", "Build repeat journeys without mixing customer tools into the merchant dashboard"],
+    benefits: ["A customer-facing foundation for repeat purchases and service journeys", "Saved items, favourite businesses, addresses, and reminders in one customer experience", "Future-ready structure for appointments, bookings, and customer follow-up"],
+    faq: [["Is Customer Hub a wallet?", "No. Customer Hub is the customer platform for orders, saved items, favourite businesses, addresses, appointments, bookings, and reminders."], ["Does it replace the merchant dashboard?", "No. Customer Hub is customer-facing. Merchants keep using the PulchriFlow dashboard to run the business."]]
   }
 } satisfies Record<string, ProductPageContent>;
