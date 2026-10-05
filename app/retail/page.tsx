@@ -1,7 +1,17 @@
 import type { Metadata } from "next";
-import ProductMarketingPage from "../../components/ProductMarketingPage";
-import { productPages } from "../../lib/product-pages";
+import RetailPage from "../../components/pages/RetailPage";
 import { siteUrl } from "../../lib/config";
-const content = productPages.retail;
-export const metadata: Metadata = { title: "Retail", description: content.description, alternates: { canonical: `${siteUrl}/retail` }, openGraph: { title: "Retail | PulchriFlow", description: content.description, url: `${siteUrl}/retail` } };
-export default function RetailPage() { return <ProductMarketingPage content={content} />; }
+import { productPages } from "../../lib/product-pages";
+
+const content = productPages["retail"];
+
+export const metadata: Metadata = {
+  title: content.title,
+  description: content.description,
+  alternates: { canonical: `${siteUrl}/retail` },
+  openGraph: { title: `${content.title} | PulchriFlow`, description: content.description, url: `${siteUrl}/retail` },
+};
+
+export default function Page() {
+  return <RetailPage />;
+}

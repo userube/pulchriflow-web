@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
-import { WorkflowStoryPage } from "../../components/StoryPages";
+import WorkflowPage from "../../components/pages/WorkflowPage";
+import { siteUrl } from "../../lib/config";
+
+const description = "Every sale starts somewhere. See how PulchriFlow takes a counter sale, a chat or a storefront order to a paid, recorded and receipted sale.";
 
 export const metadata: Metadata = {
-  title: "Workflow",
-  description: "See how PulchriFlow takes merchants from product link to fulfilled order."
+  title: "How it works",
+  description,
+  alternates: { canonical: `${siteUrl}/workflow` },
+  openGraph: { title: "How it works | PulchriFlow", description, url: `${siteUrl}/workflow` },
 };
 
-export default function WorkflowPage() {
-  return <WorkflowStoryPage />;
+export default function Page() {
+  return <WorkflowPage />;
 }

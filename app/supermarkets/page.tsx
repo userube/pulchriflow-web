@@ -1,7 +1,17 @@
 import type { Metadata } from "next";
-import ProductMarketingPage from "../../components/ProductMarketingPage";
-import { productPages } from "../../lib/product-pages";
+import SupermarketsPage from "../../components/pages/SupermarketsPage";
 import { siteUrl } from "../../lib/config";
-const content = productPages.supermarkets;
-export const metadata: Metadata = { title: "Supermarkets", description: content.description, alternates: { canonical: `${siteUrl}/supermarkets` }, openGraph: { title: "Supermarkets | PulchriFlow", description: content.description, url: `${siteUrl}/supermarkets` } };
-export default function SupermarketsPage() { return <ProductMarketingPage content={content} />; }
+import { productPages } from "../../lib/product-pages";
+
+const content = productPages["supermarkets"];
+
+export const metadata: Metadata = {
+  title: content.title,
+  description: content.description,
+  alternates: { canonical: `${siteUrl}/supermarkets` },
+  openGraph: { title: `${content.title} | PulchriFlow`, description: content.description, url: `${siteUrl}/supermarkets` },
+};
+
+export default function Page() {
+  return <SupermarketsPage />;
+}
