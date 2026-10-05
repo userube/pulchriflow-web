@@ -27,7 +27,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 
   try {
     const response = await fetch(endpoint, {
-      next: { revalidate: 300, tags: ["blog"] }
+      next: { revalidate: 300, tags: ["blog"] },
     });
     if (!response.ok) return [];
     const data = (await response.json()) as { items?: BlogPost[] };
@@ -43,7 +43,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
 
   try {
     const response = await fetch(endpoint, {
-      next: { revalidate: 300, tags: [`blog:${slug}`] }
+      next: { revalidate: 300, tags: [`blog:${slug}`] },
     });
     if (!response.ok) return null;
     return response.json() as Promise<BlogPost>;

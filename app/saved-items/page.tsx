@@ -1,7 +1,17 @@
 import type { Metadata } from "next";
-import ProductMarketingPage from "../../components/ProductMarketingPage";
-import { productPages } from "../../lib/product-pages";
+import SavedItemsPage from "../../components/pages/SavedItemsPage";
 import { siteUrl } from "../../lib/config";
+import { productPages } from "../../lib/product-pages";
+
 const content = productPages["saved-items"];
-export const metadata: Metadata = { title: "Saved Items", description: content.description, alternates: { canonical: `${siteUrl}/saved-items` }, openGraph: { title: "Saved Items | PulchriFlow", description: content.description, url: `${siteUrl}/saved-items` } };
-export default function SavedItemsPage() { return <ProductMarketingPage content={content} />; }
+
+export const metadata: Metadata = {
+  title: content.title,
+  description: content.description,
+  alternates: { canonical: `${siteUrl}/saved-items` },
+  openGraph: { title: `${content.title} | PulchriFlow`, description: content.description, url: `${siteUrl}/saved-items` },
+};
+
+export default function Page() {
+  return <SavedItemsPage />;
+}

@@ -1,3 +1,16 @@
 import type { Metadata } from "next";
-export const metadata: Metadata = { title: "Press", description: "PulchriFlow press and media resources." };
-export default function PressPage() { return <main className="article"><h1>Press</h1><p>PulchriFlow is a commerce OS helping WhatsApp and social sellers create storefronts, record sales, send invoices, receive payments, and understand business activity from one dashboard.</p><p>Media contact: support@pulchriflow.com.</p></main>; }
+import PressPage from "../../components/pages/PressPage";
+import { siteUrl } from "../../lib/config";
+
+const description = "PulchriFlow press and media resources: company boilerplate, brand assets and media contact.";
+
+export const metadata: Metadata = {
+  title: "Press",
+  description,
+  alternates: { canonical: `${siteUrl}/press` },
+  openGraph: { title: "Press | PulchriFlow", description, url: `${siteUrl}/press` },
+};
+
+export default function Page() {
+  return <PressPage />;
+}

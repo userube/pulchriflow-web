@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
-import { FeaturesStoryPage } from "../../components/StoryPages";
+import FeaturesPage from "../../components/pages/FeaturesPage";
+import { siteUrl } from "../../lib/config";
 
-export const metadata: Metadata = { title: "Features", description: "PulchriFlow features for storefronts, quick sales, invoices, payments, customers, and analytics." };
+const description = "Quick Sale, checkout links, an online store, invoices, wholesale price requests and connected business records: the commerce layer beneath every way you sell.";
 
-export default function FeaturesPage() {
-  return <FeaturesStoryPage />;
+export const metadata: Metadata = {
+  title: "Features",
+  description,
+  alternates: { canonical: `${siteUrl}/features` },
+  openGraph: { title: "Features | PulchriFlow", description, url: `${siteUrl}/features` },
+};
+
+export default function Page() {
+  return <FeaturesPage />;
 }

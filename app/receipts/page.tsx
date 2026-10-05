@@ -1,7 +1,17 @@
 import type { Metadata } from "next";
-import ProductMarketingPage from "../../components/ProductMarketingPage";
-import { productPages } from "../../lib/product-pages";
+import ProductFeaturePage from "../../components/pages/ProductFeaturePage";
 import { siteUrl } from "../../lib/config";
-const content = productPages.receipts;
-export const metadata: Metadata = { title: "Receipts", description: content.description, alternates: { canonical: `${siteUrl}/receipts` }, openGraph: { title: `Receipts | PulchriFlow`, description: content.description, url: `${siteUrl}/receipts` } };
-export default function ReceiptsPage() { return <ProductMarketingPage content={content} />; }
+import { productPages } from "../../lib/product-pages";
+
+const content = productPages["receipts"];
+
+export const metadata: Metadata = {
+  title: content.title,
+  description: content.description,
+  alternates: { canonical: `${siteUrl}/receipts` },
+  openGraph: { title: `${content.title} | PulchriFlow`, description: content.description, url: `${siteUrl}/receipts` },
+};
+
+export default function Page() {
+  return <ProductFeaturePage slug="receipts" />;
+}

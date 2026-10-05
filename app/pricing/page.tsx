@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
-import { PricingStoryPage } from "../../components/StoryPages";
+import PricingPage from "../../components/pages/PricingPage";
+import { siteUrl } from "../../lib/config";
 import { getPublicPrices } from "../../lib/pricing";
 
-export const metadata: Metadata = { title: "Pricing", description: "Create your PulchriFlow store for free. Your first 10 orders are on us, then upgrade to Pro to keep selling without limits." };
+const description = "Create your PulchriFlow store for free. Your first 10 orders are on us, then upgrade to Pro to keep selling without limits.";
 
-export default async function PricingPage() {
-  return <PricingStoryPage prices={await getPublicPrices()} />;
+export const metadata: Metadata = {
+  title: "Pricing",
+  description,
+  alternates: { canonical: `${siteUrl}/pricing` },
+  openGraph: { title: "Pricing | PulchriFlow", description, url: `${siteUrl}/pricing` },
+};
+
+export default async function Page() {
+  return <PricingPage prices={await getPublicPrices()} />;
 }
