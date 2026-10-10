@@ -13,6 +13,7 @@ export const primaryNavigation: NavItem[] = [
   { label: "Solutions", children: solutionLinks },
   { href: "/workflow", label: "How it works" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/setup", label: "Setup service" },
   { href: "/blog", label: "Journal" }
 ];
 

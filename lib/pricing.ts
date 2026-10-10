@@ -10,13 +10,27 @@ export type PlanPrice = {
   fallback: boolean;
 };
 
+export type SetupPackage = {
+  packageCode: string;
+  packageName: string;
+  amount: number;
+  currency: string;
+  productLimit: number;
+  categoryLimit: number;
+  businessLimit: number;
+  estimatedDelivery: string;
+  active: boolean;
+  features: string[];
+  addOnNote: string;
+};
+
 export async function getPublicPrices(): Promise<PlanPrice[]> {
   const endpoint = apiEndpoint("/api/public/pricing");
   if (!endpoint) return [];
 
   try {
     const response = await fetch(endpoint, {
-      next: { revalidate: 300, tags: ["pricing"] }
+      next: { revalidate: 300, tags: ["pricing"] },
     });
     if (!response.ok) return [];
     const data = (await response.json()) as { prices?: PlanPrice[] };
@@ -25,14 +39,37 @@ export async function getPublicPrices(): Promise<PlanPrice[]> {
     return [];
   }
 }
+export async function getSetupPrice(): Promise<SetupPackage[]> {
+  const endpoint = apiEndpoint("/api/public/setup-packages");
+
+  if (!endpoint) return [];
+
+  try {
+    const response = await fetch(endpoint, {
+      next: { revalidate: 300, tags: ["setup-packages"] },
+    });
+
+    if (!response.ok) return [];
+    const data = await response.json();
+
+    return data.packages;
+  } catch (error) {
+    return [];
+  }
+}
 
 export function formatPrice(price?: PlanPrice) {
   if (!price) return "Configured in PulchriFlow";
-  const amount = Number(price.amount).toLocaleString("en-NG", { maximumFractionDigits: 0 });
+  const amount = Number(price.amount).toLocaleString("en-NG", {
+    maximumFractionDigits: 0,
+  });
   return `${price.currency === "NGN" ? "₦" : price.currency} ${amount}`;
 }
 
 export function formatStandardPrice(price?: PlanPrice, fallback = 6000) {
-  const amount = Number(price?.standardAmount ?? fallback).toLocaleString("en-NG", { maximumFractionDigits: 0 });
+  const amount = Number(price?.standardAmount ?? fallback).toLocaleString(
+    "en-NG",
+    { maximumFractionDigits: 0 },
+  );
   return `${price?.currency === "NGN" || !price ? "₦" : price.currency} ${amount}`;
 }
