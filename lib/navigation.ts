@@ -4,8 +4,8 @@ export type NavItem = NavLink | { label: string; children: NavLink[] };
 export const solutionLinks: NavLink[] = [
   { href: "/retail", label: "Retail", description: "Catalogue, storefront and payments" },
   { href: "/service-businesses", label: "Services", description: "Selling time and skill, not stock" },
-  { href: "/restaurants", label: "Restaurants", description: "Menus, tables and kitchen flow" },
-  { href: "/supermarkets", label: "Supermarkets", description: "Baskets, picking and delivery" }
+  { href: "/restaurants", label: "Restaurants", description: "Menus, counter and online orders" },
+  { href: "/supermarkets", label: "Supermarkets", description: "Aisles, baskets and delivery" }
 ];
 
 export const primaryNavigation: NavItem[] = [
@@ -35,8 +35,6 @@ export const footerColumns: { title: string; links: NavLink[] }[] = [
     title: "Resources",
     links: [
       { href: "/workflow", label: "How it works" },
-      { href: "/saved-items", label: "Saved Items" },
-      { href: "/customer-hub", label: "Customer Hub" },
       { href: "/blog", label: "Journal" }
     ]
   },
@@ -46,7 +44,8 @@ export const footerColumns: { title: string; links: NavLink[] }[] = [
       { href: "/press", label: "Press" },
       { href: "/contact", label: "Contact" },
       { href: "/privacy", label: "Privacy" },
-      { href: "/terms", label: "Terms" }
+      { href: "/terms", label: "Terms" },
+      { href: "/refund", label: "Refund policy" }
     ]
   }
 ];

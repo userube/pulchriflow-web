@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import {
   AnimatePresence,
   motion,
@@ -309,6 +310,7 @@ export function Footer() {
 
 /** Phone-only sticky "Start free" bar that slides up once the hero is out of view. */
 export function StickyCta() {
+  const pathname = usePathname();
   const { scrollY } = useScroll();
   const [show, setShow] = useState(false);
   useMotionValueEvent(scrollY, "change", (y) => {
@@ -319,7 +321,7 @@ export function StickyCta() {
 
   return (
     <AnimatePresence>
-      {show && (
+      {show && !pathname.startsWith("/setup") && (
         <motion.div
           className="sticky-cta"
           initial={{ y: 100, opacity: 0 }}

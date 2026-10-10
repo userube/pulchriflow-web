@@ -38,3 +38,47 @@ export type SetupRequest = {
   notes: string;
   packageCode: string;
 };
+
+export type SetupCheckout = {
+  setupReference: string;
+  checkoutUrl: string;
+  amount: number;
+  currency: string;
+};
+
+export type SetupStatus =
+  | "PAYMENT_PENDING"
+  | "PAID"
+  | "IN_PROGRESS"
+  | "COMPLETED"
+  | "CANCELLED"
+  | "REFUNDED";
+
+export type SetupRequestStatus = {
+  setupReference: string;
+  businessName: string;
+  packageName: string;
+  amount: number;
+  currency: string;
+  status: SetupStatus;
+  paidAt: string | null;
+  checkoutUrl: string | null;
+};
+
+export function formatAmount(amount: number, currency = "NGN") {
+  return currency === "NGN"
+    ? naira(amount)
+    : `${currency} ${Math.round(amount).toLocaleString("en-NG")}`;
+}
+
+export function normalizePhone(raw: string) {
+  let digits = raw.replace(/[\s().-]/g, "");
+  if (digits.startsWith("00")) digits = `+${digits.slice(2)}`;
+  if (/^0\d{10}$/.test(digits)) digits = `+234${digits.slice(1)}`;
+  if (/^234\d{10}$/.test(digits)) digits = `+${digits}`;
+  return /^\+\d{10,15}$/.test(digits) ? digits : null;
+}
+
+export function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+}

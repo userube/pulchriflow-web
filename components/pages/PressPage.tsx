@@ -11,7 +11,7 @@ const facts = [
   { k: "What it is", v: "A commerce OS for WhatsApp and social sellers", d: "The business layer beneath the places customers already buy from.", cls: "pg-card pg-card--forest" },
   { k: "What merchants do", v: "Sell, invoice, get paid and see the business", d: "Storefronts, Quick Sale, checkout links, invoices, receipts and customer records.", cls: "pg-card" },
   { k: "Who it is for", v: "Retail, services, restaurants and supermarkets", d: "Configured per business type, on one platform.", cls: "pg-card" },
-  { k: "Pricing", v: "Free to start, first 10 orders on us", d: "Pro is available monthly, quarterly or yearly.", cls: "pg-card pg-card--mint" },
+  { k: "Pricing", v: "Free to start, up to 10 orders a month", d: "Pro is available monthly, quarterly or yearly.", cls: "pg-card pg-card--mint" },
 ];
 
 const colors = [

@@ -4,7 +4,7 @@ import { siteUrl } from "../../lib/config";
 import { getPublicPrices } from "../../lib/pricing";
 
 const description =
-  "Create your PulchriFlow store for free. Your first 10 orders are on us, then upgrade to Pro to keep selling without limits.";
+  "Create your PulchriFlow store for free with up to 10 orders a month, then upgrade to Pro to keep selling without limits.";
 
 export const metadata: Metadata = {
   title: "Pricing",

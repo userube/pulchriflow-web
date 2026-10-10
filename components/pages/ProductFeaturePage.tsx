@@ -157,7 +157,7 @@ function CheckoutMock() {
           />
           <span style={{ flex: 1, display: "flex", flexDirection: "column" }}>
             <b style={{ fontSize: 15 }}>Black tote × 2</b>
-            <span style={{ fontSize: 12, color: "var(--muted)" }}>Pick up</span>
+            <span style={{ fontSize: 12, color: "var(--muted)" }}>Delivery to Lekki</span>
           </span>
           <b style={{ fontSize: 17 }}>₦56,000</b>
         </div>
@@ -423,7 +423,7 @@ const ctas: Record<
   "quick-sale": {
     title: "Every counter sale,",
     payoff: "on the record.",
-    sub: "Start free. Your first 10 orders are on us.",
+    sub: "Start free. Up to 10 orders a month on Free.",
   },
   "checkout-links": {
     title: "One business underneath",
@@ -433,7 +433,7 @@ const ctas: Record<
   "online-store": {
     title: "A place to be found,",
     payoff: "ready in minutes.",
-    sub: "Create your storefront free. Your first 10 orders are on us.",
+    sub: "Create your storefront free. Up to 10 orders a month on Free.",
   },
   invoices: {
     title: "Clear requests,",

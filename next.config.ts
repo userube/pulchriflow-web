@@ -17,7 +17,10 @@ const nextConfig: NextConfig = {
       { source: "/register", destination: `${appUrl}/register`, permanent: false },
       { source: "/dashboard/:path*", destination: `${appUrl}/dashboard/:path*`, permanent: false },
       { source: "/privacy-policy", destination: "/privacy", permanent: true },
-      { source: "/terms-and-conditions", destination: "/terms", permanent: true }
+      { source: "/terms-and-conditions", destination: "/terms", permanent: true },
+      { source: "/refund-policy", destination: "/refund", permanent: true },
+      { source: "/saved-items", destination: "/features", permanent: true },
+      { source: "/customer-hub", destination: "/features", permanent: true }
     ];
   }
 };

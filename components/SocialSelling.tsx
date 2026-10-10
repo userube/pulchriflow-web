@@ -129,7 +129,7 @@ export function SocialSelling() {
               <span className="bubble bubble--in">I want 2.</span>
               <span className="bubble bubble--out bubble--link">
                 <span>Here&apos;s your checkout:</span>
-                <span className="mono">adascloset.pulchriflow.com/c/8KQ2</span>
+                <span className="mono">adascloset.pulchriflow.com/pay/8KQ2</span>
               </span>
             </div>
           </div>
@@ -163,7 +163,7 @@ export function SocialSelling() {
               <div className="checkout__sum">
                 <div>
                   <span>Delivery</span>
-                  <span>Pick up</span>
+                  <span>Free</span>
                 </div>
                 <div>
                   <span>Total</span>

@@ -10,51 +10,48 @@ import SiteShell from "../site/SiteShell";
 import { Faq, Head, LinkButton, Orbits, StartFree } from "../site/blocks";
 import PricingPlans, { type ProOption } from "./PricingPlans";
 
+// Mirrors the merchant app's plan limits (pulchri-flow-fe/src/features/subscription/billing.ts).
 const freeFeatures = [
-  "Your own online storefront",
-  "Add and manage products",
-  "WhatsApp checkout",
+  "Up to 10 products",
+  "Up to 10 orders a month",
+  "3 checkout links a month",
+  "Online store and WhatsApp orders",
   "Online checkout where supported",
-  "Order management",
-  "Quick Sale, checkout links, invoices and receipts",
-  "First 10 orders free",
+  "Quick Sale, invoices and receipts",
+  "Order tracking for customers",
 ];
 
 const proFeatures = [
-  "Unlimited orders",
-  "Everything in Free",
-  "Customer management and analytics",
-  "Advanced order management",
-  "Store management features",
-  "Custom domain",
+  "Unlimited products and orders",
+  "Unlimited checkout links",
+  "Customer CRM with order history",
+  "Sales analytics and top products",
+  "Sabi, your AI business assistant",
+  "Advanced notifications",
+  "Install PulchriFlow as an app",
+  "Your own domain",
   "Remove PulchriFlow branding",
-  "Sabi business assistant and notifications",
 ];
 
 type Row = { f: string; free: string; pro: string } | { group: string };
 const rows: Row[] = [
+  { group: "Limits" },
+  { f: "Products", free: "10", pro: "Unlimited" },
+  { f: "Orders each month", free: "10", pro: "Unlimited" },
+  { f: "Checkout links each month", free: "3", pro: "Unlimited" },
   { group: "Sell" },
-  { f: "Orders", free: "First 10 free", pro: "Unlimited" },
-  { f: "Your own online storefront", free: "Included", pro: "Included" },
-  { f: "WhatsApp checkout", free: "Included", pro: "Included" },
+  { f: "Online store and WhatsApp orders", free: "Included", pro: "Included" },
   { f: "Online checkout where supported", free: "Included", pro: "Included" },
-  {
-    f: "Quick Sale, checkout links, invoices and receipts",
-    free: "Included",
-    pro: "Included",
-  },
+  { f: "Quick Sale, invoices and receipts", free: "Included", pro: "Included" },
+  { f: "Order tracking for customers", free: "Included", pro: "Included" },
   { group: "Run the business" },
-  { f: "Add and manage products", free: "Included", pro: "Included" },
-  { f: "Order management", free: "Included", pro: "Advanced" },
-  { f: "Customer management and analytics", free: "—", pro: "Included" },
-  { f: "Store management features", free: "—", pro: "Included" },
-  {
-    f: "Sabi business assistant and notifications",
-    free: "—",
-    pro: "Included",
-  },
+  { f: "Customer CRM with order history", free: "—", pro: "Included" },
+  { f: "Sales analytics and top products", free: "—", pro: "Included" },
+  { f: "Sabi, your AI business assistant", free: "—", pro: "Included" },
+  { f: "Advanced notifications", free: "—", pro: "Included" },
+  { f: "Install PulchriFlow as an app", free: "—", pro: "Included" },
   { group: "Your brand" },
-  { f: "Custom domain", free: "—", pro: "Included" },
+  { f: "Your own domain", free: "—", pro: "Included" },
   { f: "Remove PulchriFlow branding", free: "—", pro: "Included" },
 ];
 
@@ -132,8 +129,8 @@ export default function PricingPage({ prices }: { prices: PlanPrice[] }) {
       "No. Create your store and start selling on the Free plan without adding a card.",
     ],
     [
-      "What happens after my first 10 orders?",
-      "Your first 10 orders are on us. After that, upgrade to Pro to keep selling without limits.",
+      "What happens when I reach 10 orders in a month?",
+      "Free covers up to 10 orders, 10 products and 3 checkout links each month, and the limits reset every month. Upgrade to Pro any time to keep selling without limits.",
     ],
     [
       `Is ${monthlyPrice} a month the regular Pro price?`,
@@ -178,8 +175,8 @@ export default function PricingPage({ prices }: { prices: PlanPrice[] }) {
               <span className="serif whitespace-nowrap">before you pay.</span>
             </h1>
             <p className="lead" style={{ maxWidth: 520 }}>
-              Create your store for free. Upgrade only after you&apos;ve
-              received your first 10 orders.
+              Create your store for free and take up to 10 orders a month.
+              Upgrade to Pro when you need more.
             </p>
             <div className="pg-ctas">
               <StartFree />
@@ -221,7 +218,7 @@ export default function PricingPage({ prices }: { prices: PlanPrice[] }) {
                   alignItems: "center",
                 }}
               >
-                <b style={{ fontSize: 15 }}>Free orders</b>
+                <b style={{ fontSize: 15 }}>Orders this month</b>
                 <span className="pg-pill">Free plan</span>
               </div>
               <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
@@ -293,8 +290,8 @@ export default function PricingPage({ prices }: { prices: PlanPrice[] }) {
               <span
                 style={{ fontSize: 13, lineHeight: 1.5, color: "var(--muted)" }}
               >
-                3 free orders left. Upgrade to Pro whenever you&apos;re ready to
-                keep selling without limits.
+                3 orders left this month. Upgrade to Pro whenever you&apos;re
+                ready to keep selling without limits.
               </span>
             </div>
           </div>
@@ -321,9 +318,9 @@ export default function PricingPage({ prices }: { prices: PlanPrice[] }) {
         <div className="wrap">
           <Head
             eyebrow="How the free plan works"
-            title="Ten real orders,"
-            payoff="then decide."
-            lead="You see PulchriFlow working with your own customers before you spend anything."
+            title="Ten orders a month,"
+            payoff="free."
+            lead="Free covers a small business every month. When you need more, Pro removes the limits."
           />
           <div
             className="pg-stage"
@@ -394,28 +391,29 @@ export default function PricingPage({ prices }: { prices: PlanPrice[] }) {
             </div>
             <div className="pg-grid pg-grid--sm">
               <div className="pg-card">
-                <span className="pg-num">Orders 1–10</span>
-                <b style={{ fontSize: 20, fontWeight: 500 }}>On us</b>
+                <span className="pg-num">Every month on Free</span>
+                <b style={{ fontSize: 20, fontWeight: 500 }}>10 orders</b>
                 <span className="pg-body">
-                  Storefront, checkout, Quick Sale, invoices and receipts, with
-                  real customers.
+                  Plus up to 10 products and 3 checkout links. The limits reset
+                  every month.
                 </span>
               </div>
               <div className="pg-card">
-                <span className="pg-num">After order 10</span>
+                <span className="pg-num">Need more?</span>
                 <b style={{ fontSize: 20, fontWeight: 500 }}>Choose Pro</b>
                 <span className="pg-body">
-                  Pick monthly, quarterly or yearly billing to keep selling
-                  without limits.
+                  Pick monthly, quarterly or yearly billing whenever you reach
+                  a limit.
                 </span>
               </div>
               <div className="pg-card pg-card--forest">
                 <span className="pg-num">On Pro</span>
                 <b style={{ fontSize: 20, fontWeight: 500 }}>
-                  Unlimited orders
+                  No limits
                 </b>
                 <span className="pg-body">
-                  Plus analytics, advanced orders, your own domain and Sabi.
+                  Unlimited products, orders and checkout links, plus customer
+                  CRM, analytics, Sabi and your own domain.
                 </span>
               </div>
             </div>
@@ -576,7 +574,7 @@ export default function PricingPage({ prices }: { prices: PlanPrice[] }) {
         eyebrow="PulchriFlow"
         title="Start selling with a clearer"
         payoff="record of the business."
-        sub="Create your store for free. Your first 10 orders are on us."
+        sub="Create your store for free. Up to 10 orders a month on Free."
       />
     </SiteShell>
   );

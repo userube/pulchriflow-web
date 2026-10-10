@@ -11,7 +11,7 @@ const flows = [
     flow: "Quick Sale",
     headline: "Ring it up in seconds.",
     text: "Pick items or type a quick amount, choose how they paid, and hand over the receipt.",
-    points: ["No catalogue needed to start", "Cash, transfer or card", "Receipt ready on completion"],
+    points: ["No catalogue needed to start", "Cash, transfer or POS", "Receipt ready on completion"],
     item: "Quick amount",
     amount: "₦12,500",
     rows: [["Paid by", "Cash"], ["Customer", "Walk-in"]],
@@ -25,7 +25,7 @@ const flows = [
     points: ["Built from the products you agreed", "Shareable in any chat", "Order and receipt created on payment"],
     item: "Linen set · Olive × 1",
     amount: "₦31,200",
-    rows: [["Delivery", "Pick up"], ["Link", "/c/4TZ9"]],
+    rows: [["Delivery", "Free"], ["Link", "/pay/4TZ9"]],
     cta: "Share checkout link",
   },
   {

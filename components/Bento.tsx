@@ -105,7 +105,7 @@ export function Bento() {
 
             <motion.article variants={fadeUp} whileHover={hover} className="card">
               <div className="card__title">
-                <span className="eyebrow">Customers</span>
+                <span className="eyebrow">Customers · Pro</span>
                 <h3>Remembered. Ready for follow-up.</h3>
               </div>
               <div className="customer">
