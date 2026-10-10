@@ -15,7 +15,7 @@ const route = [
 const trail = [
   { n: "A", tag: "Created", t: "The order", lines: [["Order", "#1043"], ["Total", "₦56,000"]], d: "Every sale starts as an order with the items and the customer attached." },
   { n: "B", tag: "When needed", t: "The invoice", lines: [["Invoice", "INV-0042"], ["Due", "In 3 days"]], d: "For agreed sales and bigger orders, send an invoice they can pay against." },
-  { n: "C", tag: "Recorded", t: "The payment", lines: [["Method", "Transfer"], ["Amount", "₦56,000"]], d: "Record cash, transfer or card, or let checkout record it for you where it is set up." },
+  { n: "C", tag: "Recorded", t: "The payment", lines: [["Method", "Transfer"], ["Amount", "₦56,000"]], d: "Record cash, transfer or POS, or let checkout record it for you where it is set up." },
   { n: "D", tag: "Shared", t: "The receipt", lines: [["Receipt", "RC-0193"], ["Sent via", "WhatsApp"]], d: "The receipt stays with the transaction, ready to share or find again." },
 ];
 
@@ -35,7 +35,7 @@ const start = [
   { t: "Create your store", d: "Sign up free and set up your business. No card required.", tag: "Free", mint: true },
   { t: "Add what you sell", d: "Products with images, prices and stock, or services with no stock at all.", tag: "Catalogue" },
   { t: "Make your first sale", d: "Share your storefront link, send a checkout link, or record a Quick Sale.", tag: "Any channel" },
-  { t: "Your first 10 orders are on us", d: "Experience PulchriFlow with real customers before you decide on Pro.", tag: "10 free orders", mint: true },
+  { t: "Free covers 10 orders a month", d: "Sell to real customers on the Free plan, and move to Pro when you need more.", tag: "Free plan", mint: true },
 ];
 
 export default function WorkflowPage() {
@@ -211,7 +211,7 @@ export default function WorkflowPage() {
           <div className="pg-col" style={{ flex: "1 1 340px" }}>
             <span className="eyebrow">Getting started</span>
             <h2 className="h2">From sign-up to <span className="serif">your first sale.</span></h2>
-            <p className="lead">Create your store for free. You only think about upgrading after your first 10 orders.</p>
+            <p className="lead">Create your store for free. Free covers up to 10 orders a month, and Pro removes the limits when you need it.</p>
             <div className="pg-ctas"><StartFree large={false} /><LinkButton href="/pricing" large={false}>See pricing</LinkButton></div>
           </div>
           <ol className="pg-col--wide" style={{ flex: "1.3 1 520px", listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column" }}>

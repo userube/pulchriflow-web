@@ -128,8 +128,8 @@ export default function PricingPlans({
             <span className="pg-body">to start</span>
           </div>
           <p className="pg-body">
-            Your first 10 orders are on us. Build your store, share your link
-            and experience PulchriFlow with real customers.
+            Build your store, share your link and take up to 10 orders a month
+            with real customers. No card needed.
           </p>
           <a
             className="btn btn--forest btn--lg"

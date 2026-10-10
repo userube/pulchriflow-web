@@ -152,10 +152,8 @@ export function Faq({
 const solutionCards = [
   { href: "/retail", t: "Retail", d: "Catalogue and storefront" },
   { href: "/service-businesses", t: "Services", d: "Selling time and skill" },
-  { href: "/restaurants", t: "Restaurants", d: "Menus, tables, kitchen" },
-  { href: "/supermarkets", t: "Supermarkets", d: "Baskets and fulfilment" },
-  { href: "/saved-items", t: "Saved Items", d: "Repeat journeys" },
-  { href: "/customer-hub", t: "Customer Hub", d: "A way back for customers" },
+  { href: "/restaurants", t: "Restaurants", d: "Menus and online orders" },
+  { href: "/supermarkets", t: "Supermarkets", d: "Aisles and baskets" },
 ];
 
 /** Cross-links to the other solution pages (excludes the current one). */

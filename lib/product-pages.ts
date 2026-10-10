@@ -56,30 +56,30 @@ export const productPages = {
   },
   restaurants: {
     title: "Restaurants",
-    description: "Run menu sales, dine-in orders, QR table flows, staff handoff, kitchen preparation, and pay-after-eating from one PulchriFlow workspace.",
+    description: "Sell from a menu page, take counter and WhatsApp orders, and keep every payment and receipt in one PulchriFlow workspace.",
     eyebrow: "DINE-IN AND MENU COMMERCE",
-    situation: "Restaurant work moves quickly. PulchriFlow keeps menu items, tables, staff, customer orders, kitchen flow, and payment records connected without creating a separate product for restaurants.",
-    workflow: ["Build a menu-style catalog", "Take dine-in, pickup, or online orders", "Move orders through kitchen, waiter, payment, and receipt"],
-    benefits: ["One platform for table, menu, order, customer, and payment records", "QR and waiter-ready flows designed to plug into the same dashboard", "Pay-after-eating support without duplicating storefront logic"],
-    faq: [["Is this a separate restaurant app?", "No. Restaurants use PulchriFlow capabilities configured for dine-in and food workflows."], ["Can a restaurant still sell online?", "Yes. Storefront, orders, payments, customers, and receipts remain part of the same platform."]]
+    situation: "Restaurant work moves quickly. PulchriFlow keeps your menu, counter sales, WhatsApp and online orders, and payment records connected in one place.",
+    workflow: ["Build a menu-style catalog", "Take counter, WhatsApp, or online orders", "Move each order from paid to completed"],
+    benefits: ["One menu for your menu page, checkout links and counter sales", "Sold-out dishes shown to customers", "Counter and online orders in one record"],
+    faq: [["Is this a separate restaurant app?", "No. Restaurants use PulchriFlow configured for menus, counter sales and online food orders."], ["Can a restaurant still sell online?", "Yes. Storefront, orders, payments, customers, and receipts remain part of the same platform."]]
   },
   supermarkets: {
     title: "Supermarkets",
-    description: "Support grocery catalog sales, repeat baskets, picking, packing, inventory, delivery, and customer records in PulchriFlow.",
+    description: "Sell groceries online with aisles, basket orders, bulk prices, stock levels, delivery and customer records in PulchriFlow.",
     eyebrow: "GROCERY FULFILMENT",
-    situation: "Grocery orders need more than a cart. Teams need to know what to pick, what is packed, what is unavailable, and what should be saved for the next shop.",
-    workflow: ["List grocery items and categories", "Receive baskets and repeat orders", "Coordinate picking, packing, inventory, delivery, and receipts"],
-    benefits: ["Saved baskets for repeat grocery journeys", "Inventory-aware fulfilment that fits supermarket operations", "Customer and order records kept with every basket"],
-    faq: [["Does PulchriFlow support saved baskets?", "Yes. Saved Items are built to support repeat baskets and other reusable customer journeys."], ["Is supermarket fulfilment separate from orders?", "No. Picking, packing, inventory, delivery, payments, and receipts plug into the same commerce record."]]
+    situation: "Grocery orders need more than a cart. Customers want to find items fast and fill a basket, and you need every order paid, packed and delivered without losing track.",
+    workflow: ["List grocery items and categories", "Receive basket orders", "Move each order from paid to packed to delivered"],
+    benefits: ["Aisles, search and quick add for full baskets", "Bulk prices that apply automatically", "Stock levels customers can see"],
+    faq: [["Can I offer bulk prices?", "Yes. Give a product a lower price for larger quantities and it applies in the basket automatically."], ["Is supermarket fulfilment separate from orders?", "No. Basket orders use the same orders, payments, customers and receipts as the rest of PulchriFlow."]]
   },
   "service-businesses": {
     title: "Service Businesses",
-    description: "Sell services with prices, images, descriptions, customer instructions, checkout, quotes, invoices, saved favourites, and repeat journeys.",
+    description: "Sell services with prices, images, descriptions, customer instructions, service requests, checkout links and invoices.",
     eyebrow: "SERVICE COMMERCE",
     situation: "Tailors, salons, laundries, travel agencies, and other service businesses need a storefront that does not pretend every offer is stock on a shelf.",
-    workflow: ["Create services instead of stocked products", "Share service pages, checkout links, quotes, or invoices", "Save customer preferences for faster repeat work"],
-    benefits: ["No-stock service catalog items with service-ready wording", "Favourite services and saved journeys for returning customers", "Orders, payments, invoices, customers, and receipts in one workspace"],
-    faq: [["Can I sell a service without stock?", "Yes. Services are catalog items with no inventory decrement."], ["Can customers save favourite services?", "Yes. Saved Items supports favourite services and other repeat journeys."]]
+    workflow: ["Create services instead of stocked products", "Take service requests from your page", "Confirm, then invoice or send a checkout link"],
+    benefits: ["No-stock service catalog items with service-ready wording", "Service requests with the customer\u2019s preferred time and details", "Orders, payments, invoices, customers, and receipts in one workspace"],
+    faq: [["Can I sell a service without stock?", "Yes. Services are catalog items with no inventory decrement."], ["Can customers request a service?", "Yes. Customers send a request with their preferred time and details from your service page, and you confirm it on WhatsApp."]]
   },
   retail: {
     title: "Retail",
@@ -89,23 +89,5 @@ export const productPages = {
     workflow: ["Add products, images, prices, stock, and categories", "Share storefront pages or checkout links", "Track orders, payments, receipts, and customer history"],
     benefits: ["Product catalog and storefront built for everyday selling", "Quick Sale, checkout links, invoices, receipts, and customer records together", "A path to service, restaurant, or supermarket capabilities later"],
     faq: [["Can I switch from retail later?", "Yes. PulchriFlow business templates can change while preserving existing records."], ["Does retail support manual and online payments?", "Yes. Merchants can use manual records and Paystack-ready checkout where configured."]]
-  },
-  "saved-items": {
-    title: "Saved Items",
-    description: "Save repeat customer journeys like favourite services, saved baskets, saved meals, trips, laundry schedules, and reusable orders.",
-    eyebrow: "REPEAT JOURNEYS",
-    situation: "Many customers buy or request the same thing again. PulchriFlow turns those patterns into saved journeys instead of scattered notes.",
-    workflow: ["Save a customer journey from a service, basket, meal, trip, or schedule", "Retrieve it when the customer returns", "Reuse the details for faster checkout, quote, invoice, or follow-up"],
-    benefits: ["Favourite services for salons, tailors, and service businesses", "Saved baskets for supermarkets and grocery runs", "A reusable foundation for reminders, bookings, appointments, and customer hub experiences"],
-    faq: [["Is this only saved orders?", "No. Saved Items is a reusable engine for multiple business journeys, not just previous orders."], ["Can it support future reminders?", "Yes. It is structured so reminders and repeat workflows can build on top later."]]
-  },
-  "customer-hub": {
-    title: "Customer Hub",
-    description: "Give customers one clear place to return for orders, saved items, favourite businesses, appointments, bookings, addresses, and reminders.",
-    eyebrow: "CUSTOMER EXPERIENCE",
-    situation: "Customers should not have to search through old chats to find an order, saved service, basket, address, booking, or reminder. Customer Hub gives repeat buyers a cleaner way back into the business.",
-    workflow: ["Give customers one place to return", "Organize orders, saved items, favourites, addresses, appointments, bookings, and reminders", "Build repeat journeys without mixing customer tools into the merchant dashboard"],
-    benefits: ["A customer-facing foundation for repeat purchases and service journeys", "Saved items, favourite businesses, addresses, and reminders in one customer experience", "Future-ready structure for appointments, bookings, and customer follow-up"],
-    faq: [["Is Customer Hub a wallet?", "No. Customer Hub is the customer platform for orders, saved items, favourite businesses, addresses, appointments, bookings, and reminders."], ["Does it replace the merchant dashboard?", "No. Customer Hub is customer-facing. Merchants keep using the PulchriFlow dashboard to run the business."]]
   }
 } satisfies Record<string, ProductPageContent>;

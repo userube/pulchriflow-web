@@ -1,4 +1,5 @@
 import { Check, ShoppingBag, Store, UtensilsCrossed } from "lucide-react";
+import { appLink } from "@/lib/config";
 import { productPages } from "@/lib/product-pages";
 import { FinalCta } from "../Closing";
 import { Reveal } from "../motion";
@@ -7,18 +8,12 @@ import { ChangeCards, Faq, Head, LinkButton, OtherSolutions, Orbits, StartFree }
 
 const content = productPages.restaurants;
 
-type Ticket = { where: string; items: string; time: string; tag: string; tagCls: string; late?: boolean };
-const board: { name: string; dot: string; tickets: Ticket[] }[] = [
-  { name: "New", dot: "var(--blue)", tickets: [
-    { where: "Table 4", items: "Jollof rice × 2, grilled fish, zobo × 2", time: "2 min", tag: "Dine-in", tagCls: "pg-pill pg-pill--neutral" },
-    { where: "Online #2210", items: "Fried rice, chicken, plantain", time: "1 min", tag: "Delivery", tagCls: "pg-pill pg-pill--blue" },
-  ] },
-  { name: "Preparing", dot: "var(--amber)", tickets: [
-    { where: "Table 7", items: "Pepper soup, pounded yam", time: "14 min", tag: "Dine-in", tagCls: "pg-pill pg-pill--neutral", late: true },
-    { where: "Pickup · Ada", items: "Suya wrap × 3", time: "8 min", tag: "Pickup", tagCls: "pg-pill pg-pill--amber" },
-  ] },
-  { name: "Ready", dot: "var(--brand)", tickets: [{ where: "Table 1", items: "Egusi, amala, goat meat", time: "Now", tag: "Waiter to serve", tagCls: "pg-pill" }] },
-  { name: "Served · unpaid", dot: "var(--forest)", tickets: [{ where: "Table 6", items: "Jollof × 2, grilled fish, zobo × 3", time: "₦15,900", tag: "Pay after eating", tagCls: "pg-pill pg-pill--mint" }] },
+// Uses the order statuses merchants have in the dashboard.
+const today = [
+  { where: "Online #2210", items: "Fried rice, chicken, plantain", source: "Menu page · Delivery", amt: "₦6,200", status: "Paid", cls: "pg-pill" },
+  { where: "Ada · WhatsApp", items: "Suya wrap × 3", source: "Checkout link", amt: "₦7,500", status: "Awaiting payment", cls: "pg-pill pg-pill--amber" },
+  { where: "Walk-in", items: "Jollof rice × 2, zobo × 2", source: "Quick Sale · Cash", amt: "₦9,400", status: "Completed", cls: "pg-pill pg-pill--neutral" },
+  { where: "Online #2209", items: "Pepper soup, pounded yam", source: "Menu page · Delivery", amt: "₦5,500", status: "Shipped", cls: "pg-pill pg-pill--blue" },
 ];
 
 const menu = [
@@ -29,33 +24,23 @@ const menu = [
 ];
 
 const sources = [
-  { t: "Dine-in · Table 4", d: "Taken by waiter", amt: "₦13,800", Icon: UtensilsCrossed, cls: "pg-well pg-well--forest" },
-  { t: "Pickup · Ada", d: "Ordered by phone", amt: "₦7,500", Icon: ShoppingBag, cls: "pg-well" },
-  { t: "Online #2210", d: "From your storefront", amt: "₦6,200", Icon: Store, cls: "pg-well pg-well--mint" },
+  { t: "Walk-in · counter", d: "Rung up with Quick Sale", amt: "₦9,400", Icon: UtensilsCrossed, cls: "pg-well pg-well--forest" },
+  { t: "Ada · WhatsApp", d: "Paid with a checkout link", amt: "₦7,500", Icon: ShoppingBag, cls: "pg-well" },
+  { t: "Online #2210", d: "Ordered from your menu page", amt: "₦6,200", Icon: Store, cls: "pg-well pg-well--mint" },
 ];
 
 const flow = [
-  { t: "Order placed · Table 4", time: "12:41", done: true },
-  { t: "Kitchen preparing", time: "12:43", done: true },
-  { t: "Waiter served", time: "12:58", done: true },
-  { t: "Payment", time: "Waiting", done: false },
-  { t: "Receipt", time: "—", done: false },
+  { t: "Order placed · #2210", time: "12:41", done: true },
+  { t: "Paid", time: "12:42", done: true },
+  { t: "Packing", time: "12:55", done: true },
+  { t: "Shipped", time: "Out now", done: false },
+  { t: "Completed", time: "—", done: false },
 ];
 
-const states = {
-  free: { label: "Free", bg: "var(--paper)", fg: "var(--muted)", border: "var(--line)" },
-  seated: { label: "Seated", bg: "#e7eefb", fg: "var(--blue)", border: "#cddaf3" },
-  order: { label: "Ordering", bg: "var(--amber-bg)", fg: "var(--ink)", border: "#f0d9a6" },
-  eat: { label: "Eating", bg: "var(--brand)", fg: "#fff", border: "var(--brand)" },
-  bill: { label: "Bill ready", bg: "var(--lime)", fg: "var(--forest)", border: "#5fc4b0" },
-} as const;
-const tables: (keyof typeof states)[] = ["eat", "free", "order", "eat", "free", "bill", "seated", "eat", "free", "order", "bill", "free"];
-const qr = "1110110101011101010110111".split("");
-
 const changes = [
-  { t: "One platform for the whole room", d: "Table, menu, order, customer and payment records together." },
-  { t: "QR and waiter-ready", d: "Flows designed to plug into the same dashboard rather than a separate system." },
-  { t: "Pay after eating", d: "Supported without duplicating storefront logic." },
+  { t: "One menu, every channel", d: "The same menu powers your menu page, checkout links and counter sales." },
+  { t: "Sold out in a tap", d: "Set a dish's stock to zero and customers see it's finished for today." },
+  { t: "Counter and online, one record", d: "Walk-ins, WhatsApp and online orders share the same orders, payments and receipts." },
 ];
 
 export default function RestaurantsPage() {
@@ -71,30 +56,23 @@ export default function RestaurantsPage() {
             </div>
             <div style={{ flex: "1 1 360px", maxWidth: 440, display: "flex", flexDirection: "column", gap: 22 }}>
               <p className="lead">{content.situation}</p>
-              <div className="pg-ctas"><StartFree /><LinkButton href="#tables">See the floor</LinkButton></div>
+              <div className="pg-ctas"><StartFree /><LinkButton href={appLink("/shop/demo-restaurant")}>Try the restaurant demo</LinkButton></div>
             </div>
           </div>
           <Reveal delay={0.15}>
             <div style={{ background: "linear-gradient(180deg, rgba(250,249,245,0.12), rgba(250,249,245,0.04))", border: "1px solid rgba(250,249,245,0.14)", borderRadius: 30, padding: 10 }} aria-hidden="true">
               <div style={{ background: "#fbfcfb", color: "var(--ink)", borderRadius: 22, padding: 22, display: "flex", flexDirection: "column", gap: 18 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
-                  <span style={{ display: "flex", flexDirection: "column", gap: 2 }}><b style={{ fontSize: 18 }}>Kitchen · Lunch service</b><span style={{ fontSize: 13, color: "var(--muted)" }}>9 open orders</span></span>
-                  <span style={{ display: "flex", gap: 6 }}><span className="pg-pill pg-pill--forest">Dine-in 5</span><span className="pg-pill pg-pill--neutral">Pickup 2</span><span className="pg-pill pg-pill--neutral">Online 2</span></span>
+                  <span style={{ display: "flex", flexDirection: "column", gap: 2 }}><b style={{ fontSize: 18 }}>Orders · Lunch</b><span style={{ fontSize: 13, color: "var(--muted)" }}>Counter, WhatsApp and online in one list</span></span>
+                  <span style={{ display: "flex", gap: 6 }}><span className="pg-pill pg-pill--forest">Online 2</span><span className="pg-pill pg-pill--neutral">WhatsApp 1</span><span className="pg-pill pg-pill--neutral">Counter 1</span></span>
                 </div>
                 <div className="pg-grid pg-grid--sm" style={{ gap: 12 }}>
-                  {board.map((col) => (
-                    <div key={col.name} style={{ background: "var(--line-soft)", borderRadius: 18, padding: 12, display: "flex", flexDirection: "column", gap: 10 }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "2px 4px" }}>
-                        <b style={{ fontSize: 13, display: "flex", alignItems: "center", gap: 8 }}><span className="pg-dot" style={{ background: col.dot }} />{col.name}</b>
-                        <span className="mono" style={{ fontSize: 11, color: "var(--muted)" }}>{col.tickets.length}</span>
-                      </div>
-                      {col.tickets.map((t) => (
-                        <div key={t.where} style={{ background: "var(--paper)", borderRadius: 14, padding: 12, display: "flex", flexDirection: "column", gap: 8, boxShadow: "0 1px 2px rgba(9,34,29,0.06)" }}>
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}><b style={{ fontSize: 14 }}>{t.where}</b><span className="mono" style={{ fontSize: 11, color: t.late ? "var(--ink)" : "var(--muted)", fontWeight: t.late ? 600 : 400 }}>{t.time}</span></div>
-                          <span style={{ fontSize: 13, color: "#3f4d47", lineHeight: 1.45 }}>{t.items}</span>
-                          <span className={t.tagCls}>{t.tag}</span>
-                        </div>
-                      ))}
+                  {today.map((t) => (
+                    <div key={t.where} style={{ background: "var(--paper)", border: "1px solid var(--line-soft)", borderRadius: 14, padding: 14, display: "flex", flexDirection: "column", gap: 8 }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}><b style={{ fontSize: 14 }}>{t.where}</b><b style={{ fontSize: 13 }}>{t.amt}</b></div>
+                      <span style={{ fontSize: 13, color: "#3f4d47", lineHeight: 1.45 }}>{t.items}</span>
+                      <span style={{ fontSize: 12, color: "var(--muted)" }}>{t.source}</span>
+                      <span className={t.cls}>{t.status}</span>
                     </div>
                   ))}
                 </div>
@@ -106,7 +84,7 @@ export default function RestaurantsPage() {
 
       <section className="section pg-cream">
         <div className="wrap">
-          <Head eyebrow="The workflow" title="From menu to receipt," payoff="one service." lead="Build the menu once. Every order, wherever it comes from, moves through the same kitchen and the same payment record." />
+          <Head eyebrow="The workflow" title="From menu to receipt," payoff="one service." lead="Build the menu once. Every order, wherever it comes from, lands in the same orders and payment record." />
           <div className="pg-grid">
             <div className="pg-card">
               <span className="pg-num">01</span>
@@ -160,51 +138,6 @@ export default function RestaurantsPage() {
         </div>
       </section>
 
-      <section className="section pg-white" id="tables" style={{ scrollMarginTop: 80 }}>
-        <div className="wrap pg-split">
-          <div className="pg-col" style={{ flex: "1 1 360px" }}>
-            <span className="eyebrow">Tables, QR and waiters</span>
-            <h2 className="h2">The floor, the kitchen and the till, <span className="serif">in one view.</span></h2>
-            <p className="lead">QR and waiter-ready flows are designed to plug into the same dashboard, with pay-after-eating supported without duplicating storefront logic.</p>
-            <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexWrap: "wrap", gap: 12, fontSize: 13 }} aria-label="Table states">
-              {Object.values(states).map((s) => (
-                <li key={s.label} style={{ display: "inline-flex", alignItems: "center", gap: 8 }}><span style={{ width: 12, height: 12, borderRadius: 4, background: s.bg, border: `1px solid ${s.border}` }} />{s.label}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="pg-col pg-col--wide" style={{ position: "relative", paddingBlock: 40 }} aria-hidden="true">
-            <div className="pg-stage" style={{ padding: 32 }}>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 12 }}>
-                {tables.map((k, i) => {
-                  const s = states[k];
-                  return (
-                    <div key={i} style={{ aspectRatio: "1 / 1", borderRadius: (i + 1) % 4 === 0 ? "50%" : 18, background: s.bg, color: s.fg, border: `1px solid ${s.border}`, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 4 }}>
-                      <b style={{ fontSize: 18 }}>{i + 1}</b>
-                      <span style={{ fontSize: 11, fontWeight: 500 }}>{s.label === "Bill ready" ? "Bill" : s.label}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            <div className="pg-float" style={{ position: "absolute", right: -16, bottom: 0, width: 230, padding: 18, display: "flex", flexDirection: "column", gap: 12 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}><b style={{ fontSize: 14 }}>Table 6 · Bill</b><span className="pg-pill">Pay after eating</span></div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13 }}>
-                {[["Jollof rice × 2", "₦7,000"], ["Grilled fish", "₦6,500"], ["Zobo × 3", "₦2,400"]].map(([a, b]) => <div key={a} style={{ display: "flex", justifyContent: "space-between" }}><span>{a}</span><span>{b}</span></div>)}
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 16, fontWeight: 600, borderTop: "1px dashed #cdd8d3", paddingTop: 10 }}><span>Total</span><span>₦15,900</span></div>
-              <span className="pg-action pg-action--mint" style={{ minHeight: 40 }}>Take payment</span>
-            </div>
-            <div className="pg-float pg-float--dark" style={{ position: "absolute", left: -20, top: 0, width: 150, display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
-              <div style={{ width: 84, height: 84, background: "#fff", borderRadius: 10, padding: 8, display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: 3 }}>
-                {qr.map((b, i) => <span key={i} style={{ borderRadius: 2, background: b === "1" ? "var(--forest)" : "#fff" }} />)}
-              </div>
-              <b style={{ fontSize: 13 }}>Table 6</b>
-              <span style={{ fontSize: 11, color: "var(--on-dark-muted)", textAlign: "center" }}>Scan to see the menu</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="section section--forest on-dark">
         <div className="wrap">
           <Head eyebrow="What changes" title="Less chasing." payoff="A better record." />
@@ -214,7 +147,7 @@ export default function RestaurantsPage() {
 
       <Faq items={content.faq} />
       <OtherSolutions current="/restaurants" />
-      <FinalCta plain eyebrow="PulchriFlow" title="Busy service, calm" payoff="records." sub="Set up your menu free. Your first 10 orders are on us." />
+      <FinalCta plain eyebrow="PulchriFlow" title="Busy service, calm" payoff="records." sub="Set up your menu free. Up to 10 orders a month on Free." />
     </SiteShell>
   );
 }

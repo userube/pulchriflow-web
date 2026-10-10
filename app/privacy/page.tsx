@@ -3,8 +3,8 @@ import LegalPage from "../../components/pages/LegalPage";
 import { siteUrl } from "../../lib/config";
 
 export const metadata: Metadata = {
-  title: "Privacy",
-  description: "PulchriFlow privacy policy.",
+  title: "Privacy policy",
+  description: "Learn how PulchriFlow collects, uses, and protects merchant, customer, and order information.",
   alternates: { canonical: `${siteUrl}/privacy` },
 };
 
@@ -13,12 +13,14 @@ export default function Page() {
     <LegalPage
       title="Privacy"
       payoff="policy."
-      summary="How PulchriFlow collects and uses the information needed to run merchant accounts and storefronts."
+      summary="PulchriFlow respects your privacy. This is how we collect, use and protect merchant, customer and order information."
       other={{ href: "/terms", label: "Read the Terms" }}
       sections={[
-        { title: "What we collect", body: "PulchriFlow collects the information needed to provide merchant accounts, storefronts, orders, payments, notifications, and support." },
-        { title: "How we use it", body: "We use operational data to run the product, improve reliability, and help merchants understand their business." },
-        { title: "Privacy requests", body: "For privacy requests, contact support@pulchriflow.com." },
+        { title: "Information we collect", body: "Name, email, phone number, store information, customer information entered by merchants, and order information." },
+        { title: "How we use information", body: "To provide storefronts, process orders, improve the platform, send service notifications, and provide customer support." },
+        { title: "Data security", body: "PulchriFlow uses industry-standard security practices to protect data." },
+        { title: "Third parties", body: "PulchriFlow may use trusted third-party providers including Paystack, Brevo, Cloudinary, and hosting providers." },
+        { title: "Contact", body: "For privacy questions or requests, contact support@pulchriflow.com." },
       ]}
     />
   );

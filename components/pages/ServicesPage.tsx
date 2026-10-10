@@ -6,21 +6,21 @@ import SolutionTemplate from "./SolutionTemplate";
 const content = productPages["service-businesses"];
 
 const kinds = [
-  { t: "Tailors", item: "Custom agbada · from ₦45,000", note: "Measurements saved", Icon: Scissors, well: "pg-well pg-well--brand" },
-  { t: "Salons", item: "Knotless braids · medium", note: "Favourite for 12 customers", Icon: Sparkles, well: "pg-well pg-well--mint" },
-  { t: "Laundries", item: "Wash and iron · 12 items", note: "Ready Thursday", Icon: Shirt, well: "pg-well pg-well--forest" },
-  { t: "Travel agencies", item: "Lagos → Abuja · return", note: "Quote sent", Icon: Plane, well: "pg-well" },
+  { t: "Tailors", item: "Custom agbada · from ₦45,000", note: "Ready in 7 days", Icon: Scissors, well: "pg-well pg-well--brand" },
+  { t: "Salons", item: "Knotless braids · medium", note: "About 5 hours · in studio", Icon: Sparkles, well: "pg-well pg-well--mint" },
+  { t: "Laundries", item: "Wash and iron · 12 items", note: "From ₦3,500 · 2 days", Icon: Shirt, well: "pg-well pg-well--forest" },
+  { t: "Travel agencies", item: "Lagos → Abuja · return", note: "Request a booking", Icon: Plane, well: "pg-well" },
 ];
 
 const steps = [
   { t: content.workflow[0], d: "Name it, price it, describe what is included. No inventory to count down.", ui: "New service", tag: "No stock", dark: false, rows: [["Service", "Knotless braids · medium"], ["Price", "From ₦25,000"], ["Takes about", "5 hours"]] },
-  { t: content.workflow[1], d: "Send what fits the conversation: a page to browse, a link to pay, or a quote to agree on first.", ui: "Quote QT-0017", tag: "Sent", dark: true, rows: [["For", "Femi A."], ["Custom agbada + cap", "₦62,000"], ["Valid until", "12 Oct"]] },
-  { t: content.workflow[2], d: "Measurements, styles and favourite services stay with the customer, ready next time.", ui: "Femi A. · saved", tag: "Favourite", dark: false, rows: [["Measurements", "Chest 42 · Sleeve 25"], ["Favourite service", "Custom agbada"], ["Last visit", "3 weeks ago"]] },
+  { t: content.workflow[1], d: "Customers pick a service on your page and send a request with their preferred day and details. It lands in your dashboard.", ui: "Service request", tag: "New", dark: true, rows: [["From", "Femi A."], ["Service", "Custom agbada + cap"], ["Preferred time", "Saturday morning"]] },
+  { t: content.workflow[2], d: "Agree the details on WhatsApp, then send an invoice or a checkout link. The payment and receipt stay with the order.", ui: "Invoice INV-0051", tag: "Paid", dark: false, rows: [["For", "Femi A."], ["Custom agbada + cap", "₦62,000"], ["Receipt", "RC-0204 · shared"]] },
 ];
 
 const changes = [
   { t: "Service-ready wording, no stock to manage", d: "No-stock catalog items that read like services, not shelf products." },
-  { t: "Favourites and saved journeys", d: "Returning customers find their favourite services and saved journeys without re-explaining." },
+  { t: "Requests, then payment", d: "Customers request a time and share details first. You confirm, then invoice or send a checkout link." },
   { t: "One workspace for the whole job", d: "Orders, payments, invoices, customers and receipts together." },
 ];
 
@@ -38,11 +38,11 @@ function HeroVisual() {
             <div key={k} style={{ background: "var(--cream)", borderRadius: 14, padding: 12 }}><span style={{ fontSize: 11, color: "var(--muted)" }}>{k}</span><div style={{ fontSize: 17, fontWeight: 600 }}>{v}</div></div>
           ))}
         </div>
-        <div style={{ display: "flex", gap: 8 }}><span className="pg-action" style={{ flex: 1 }}>Send a quote</span><span className="pg-action pg-action--ghost" style={{ flex: 1 }}>Share page</span></div>
+        <div style={{ display: "flex", gap: 8 }}><span className="pg-action" style={{ flex: 1 }}>Request service</span><span className="pg-action pg-action--ghost" style={{ flex: 1 }}>Share page</span></div>
       </div>
       <div className="pg-float" style={{ position: "absolute", right: -12, bottom: -44, width: 250, padding: 16, display: "flex", flexDirection: "column", gap: 8 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}><b style={{ fontSize: 14 }}>Saved for Femi</b><span className="pg-pill">Favourite</span></div>
-        <span style={{ fontSize: 13, color: "#3f4d47", lineHeight: 1.5 }}>Chest 42 · Sleeve 25 · Length 54. Prefers wine aso-oke.</span>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}><b style={{ fontSize: 14 }}>New request · Femi A.</b><span className="pg-pill">New</span></div>
+        <span style={{ fontSize: 13, color: "#3f4d47", lineHeight: 1.5 }}>Custom agbada · Saturday morning. Prefers wine aso-oke.</span>
       </div>
     </div>
   );
@@ -55,8 +55,8 @@ export default function ServicesPage() {
       content={content}
       title="Service businesses"
       visual={<HeroVisual />}
-      secondary={{ href: "/saved-items", label: "See Saved Items" }}
-      cta={{ title: "Your skill is the product.", payoff: "Run it properly.", sub: "Set up your services free. Your first 10 orders are on us." }}
+      secondary={{ href: "/workflow", label: "See how it works" }}
+      cta={{ title: "Your skill is the product.", payoff: "Run it properly.", sub: "Set up your services free. Up to 10 orders a month on Free." }}
     >
       <section className="section pg-cream">
         <div className="wrap">

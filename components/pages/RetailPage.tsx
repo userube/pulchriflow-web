@@ -15,8 +15,8 @@ const catalog = [
 
 const shares = [
   { t: "Storefront page", url: "adascloset.pulchriflow.com", Icon: Store, cls: "pg-well pg-well--forest" },
-  { t: "Product page", url: "adascloset.pulchriflow.com/p/linen-set", Icon: Package, cls: "pg-well" },
-  { t: "Checkout link", url: "adascloset.pulchriflow.com/c/4TZ9", Icon: Link2, cls: "pg-well pg-well--mint" },
+  { t: "Product page", url: "adascloset.pulchriflow.com/?p=linen-set", Icon: Package, cls: "pg-well" },
+  { t: "Checkout link", url: "adascloset.pulchriflow.com/pay/4TZ9", Icon: Link2, cls: "pg-well pg-well--mint" },
 ];
 
 const changes = [
@@ -73,7 +73,7 @@ export default function RetailPage() {
           ))}
         </div>
       }
-      cta={{ title: "One business underneath", payoff: "every sale.", sub: "Set up your catalogue and storefront free. Your first 10 orders are on us." }}
+      cta={{ title: "One business underneath", payoff: "every sale.", sub: "Set up your catalogue and storefront free. Up to 10 orders a month on Free." }}
     >
       <section className="section pg-cream">
         <div className="wrap">

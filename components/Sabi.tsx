@@ -38,10 +38,10 @@ export function Sabi() {
       <div className="wrap sabi">
         <div className="sabi__copy">
           <SectionHead
-            eyebrow="06 — Sabi, your AI business assistant"
+            eyebrow="06 — Sabi, your AI business assistant · Pro"
             title="Now,"
             payoff="understand your business."
-            lead="Once sales, orders, customers and products live in one place, Sabi helps you ask better questions about what is happening."
+            lead="Once sales, orders, customers and products live in one place, Sabi helps you ask better questions about what is happening. Sabi is included with Pro."
           />
           <div className="topics">
             {["Sales", "Top products", "Customers", "What needs attention"].map(

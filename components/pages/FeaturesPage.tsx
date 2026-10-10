@@ -22,7 +22,7 @@ import { Head, LinkButton, Orbits, StartFree } from "../site/blocks";
 
 const layer = [
   { label: "Orders", value: "23", note: "4 need attention" },
-  { label: "Payments", value: "₦184,500", count: 184500, note: "Cash · Transfer · Card" },
+  { label: "Payments", value: "₦184,500", count: 184500, note: "Cash · Transfer · POS · Online" },
   { label: "Customers", value: "18", note: "5 new today" },
   { label: "Products", value: "64", note: "3 running low" },
   { label: "Receipts", value: "23", note: "All shared" },
@@ -38,9 +38,9 @@ const caps = [
 ] as const;
 
 const requests = [
-  { who: "Bayo Stores", what: "Forest shopper · 50 units", status: "New", main: true },
-  { who: "Kemi & Co.", what: "Linen set · 30 units", status: "Price sent", main: false },
-  { who: "Uche Retail", what: "Black tote · 25 units", status: "Accepted", main: false },
+  { who: "Bayo Stores", what: "Forest shopper · 50 units · 0803 555 0142", status: "New", main: true },
+  { who: "Kemi & Co.", what: "Linen set · 30 units · 0805 220 9013", status: "New", main: false },
+  { who: "Uche Retail", what: "Black tote · 25 units · 0807 418 3320", status: "New", main: false },
 ];
 
 const history = [
@@ -51,7 +51,7 @@ const history = [
 ];
 
 const linked = [
-  { kind: "Order", tag: "Packing", tagCls: "pg-pill pg-pill--blue", title: "#1043", detail: "Black tote × 2 · Pick up", cls: "pg-card" },
+  { kind: "Order", tag: "Packing", tagCls: "pg-pill pg-pill--blue", title: "#1043", detail: "Black tote × 2 · Delivery", cls: "pg-card" },
   { kind: "Payment", tag: "Paid", tagCls: "pg-pill pg-pill--mint", title: "₦56,000", detail: "Transfer · confirmed 10:42am", cls: "pg-card pg-card--forest" },
   { kind: "Receipt", tag: "Shared", tagCls: "pg-pill", title: "RC-0193", detail: "Sent on WhatsApp", cls: "pg-card" },
   { kind: "Product", tag: "2 left", tagCls: "pg-pill pg-pill--amber", title: "Black tote", detail: "Stock updated after the sale", cls: "pg-card" },
@@ -59,18 +59,18 @@ const linked = [
 
 const pro = [
   { t: "Customer management and analytics", d: "See who buys, how often, and what they come back for.", Icon: BarChart3 },
-  { t: "Advanced order management", d: "More control over statuses, fulfilment and follow-up.", Icon: ListOrdered },
-  { t: "Store management features", d: "Run a fuller catalogue and storefront.", Icon: SlidersHorizontal },
+  { t: "No limits", d: "Unlimited products, orders and checkout links every month.", Icon: ListOrdered },
+  { t: "Advanced notifications", d: "Alerts for new orders and payments as they come in.", Icon: SlidersHorizontal },
   { t: "Custom domain", d: "Your storefront on your own web address.", Icon: Globe },
   { t: "Remove PulchriFlow branding", d: "A storefront that is entirely your brand.", Icon: Eye },
-  { t: "Sabi and notifications", d: "Your AI business assistant, plus alerts when something needs you.", Icon: Sparkles },
+  { t: "Sabi, your AI assistant", d: "Ask about your sales, best sellers and best customers.", Icon: Sparkles },
 ];
 
 const solutions = [
   { t: "Retail", d: "Catalogue, storefront, flexible payments and a record of what each customer bought.", href: "/retail", Icon: ShoppingBag },
   { t: "Services", d: "Tailors, salons, laundries and travel agencies selling time and skill, not stock.", href: "/service-businesses", Icon: Scissors },
-  { t: "Restaurants", d: "Menus, tables, kitchen flow and payment records in one place.", href: "/restaurants", Icon: UtensilsCrossed },
-  { t: "Supermarkets", d: "Baskets, picking, packing and repeat grocery orders.", href: "/supermarkets", Icon: ShoppingCart },
+  { t: "Restaurants", d: "A menu page, counter sales and online orders with payment records in one place.", href: "/restaurants", Icon: UtensilsCrossed },
+  { t: "Supermarkets", d: "Aisles, full baskets, bulk prices and delivery.", href: "/supermarkets", Icon: ShoppingCart },
 ];
 
 export default function FeaturesPage() {
@@ -198,7 +198,7 @@ export default function FeaturesPage() {
                 <div style={{ display: "flex", gap: 6, fontSize: 12, fontWeight: 500 }}>
                   <span style={{ flex: 1, textAlign: "center", padding: 8, borderRadius: 99, background: "var(--forest)", color: "var(--lime)" }}>Cash</span>
                   <span style={{ flex: 1, textAlign: "center", padding: 8, borderRadius: 99, border: "1px solid var(--line)" }}>Transfer</span>
-                  <span style={{ flex: 1, textAlign: "center", padding: 8, borderRadius: 99, border: "1px solid var(--line)" }}>Card</span>
+                  <span style={{ flex: 1, textAlign: "center", padding: 8, borderRadius: 99, border: "1px solid var(--line)" }}>POS</span>
                 </div>
                 <span className="pg-action pg-action--mint">Record sale</span>
               </div>
@@ -214,11 +214,11 @@ export default function FeaturesPage() {
               <div className="pg-ui">
                 <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
                   <span className="pg-swatch" style={{ width: 44, height: 44, background: "#1E2422" }} />
-                  <span style={{ flex: 1, display: "flex", flexDirection: "column" }}><b style={{ fontSize: 14 }}>Black tote × 2</b><span style={{ fontSize: 12, color: "var(--muted)" }}>Pick up</span></span>
+                  <span style={{ flex: 1, display: "flex", flexDirection: "column" }}><b style={{ fontSize: 14 }}>Black tote × 2</b><span style={{ fontSize: 12, color: "var(--muted)" }}>Delivery</span></span>
                   <b style={{ fontSize: 16 }}>₦56,000</b>
                 </div>
                 <div className="mono" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, background: "var(--cream)", borderRadius: 12, padding: "10px 12px", fontSize: 11, color: "#3f4d47" }}>
-                  <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>adascloset.pulchriflow.com/c/8KQ2</span>
+                  <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>adascloset.pulchriflow.com/pay/8KQ2</span>
                   <span style={{ fontFamily: "var(--font-geist)", fontWeight: 600, color: "var(--brand)", fontSize: 12 }}>Copy</span>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 13 }}><span style={{ color: "var(--muted)" }}>Status</span><span className="pg-pill" style={{ alignSelf: "center" }}>Paid · Transfer</span></div>
@@ -322,24 +322,18 @@ export default function FeaturesPage() {
               <p className="pg-body">Buyers can submit a price request.</p>
             </div>
             <div className="pg-card pg-card--mint">
-              <span className="pg-label">You review</span>
+              <span className="pg-label">You see every request</span>
               <div className="pg-stack" style={{ gap: 8 }}>
                 {requests.map((r) => (
                   <div key={r.who} style={{ background: r.main ? "var(--forest)" : "color-mix(in srgb, var(--forest) 8%, transparent)", color: r.main ? "var(--on-dark)" : "var(--forest)", borderRadius: 16, padding: 14, display: "flex", flexDirection: "column", gap: 10 }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
                       <span style={{ display: "flex", flexDirection: "column" }}><b style={{ fontSize: 14 }}>{r.who}</b><span style={{ fontSize: 12, opacity: 0.78 }}>{r.what}</span></span>
-                      <span className={r.main ? "pg-pill pg-pill--mint" : r.status === "Accepted" ? "pg-pill pg-pill--forest" : "pg-pill"} style={{ alignSelf: "center" }}>{r.status}</span>
+                      <span className={r.main ? "pg-pill pg-pill--mint" : "pg-pill"} style={{ alignSelf: "center" }}>{r.status}</span>
                     </div>
-                    {r.main && (
-                      <div style={{ display: "flex", gap: 6, fontSize: 12, fontWeight: 600 }}>
-                        <span style={{ flex: 1, textAlign: "center", padding: 9, borderRadius: 10, background: "var(--lime)", color: "var(--forest)" }}>Send price</span>
-                        <span style={{ flex: 1, textAlign: "center", padding: 9, borderRadius: 10, border: "1px solid rgba(250,249,245,0.25)" }}>Decline</span>
-                      </div>
-                    )}
                   </div>
                 ))}
               </div>
-              <p className="pg-body">Merchants review wholesale requests in PulchriFlow.</p>
+              <p className="pg-body">Requests land in Price requests with the buyer&apos;s number, so you can reply with your price on WhatsApp.</p>
             </div>
           </div>
         </div>

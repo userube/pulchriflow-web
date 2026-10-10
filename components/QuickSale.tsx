@@ -67,7 +67,7 @@ export function QuickSale() {
           <div className="steps">
             {[
               ["Select items or enter an amount", "No catalogue needed to start."],
-              ["Choose how they paid", "Cash, transfer, card or link."],
+              ["Choose how they paid", "Cash, transfer or POS."],
               ["Share the receipt", "Ready the moment the sale is complete."],
             ].map(([t, s], i) => (
               <div className="step" key={t}>
@@ -108,7 +108,7 @@ export function QuickSale() {
             <div className="methods">
               <span className="method">Cash</span>
               <span className="method method--transfer is-active">Transfer</span>
-              <span className="method">Card</span>
+              <span className="method">POS</span>
             </div>
             <span className="pos__continue">Continue</span>
           </div>
