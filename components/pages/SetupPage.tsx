@@ -19,13 +19,13 @@ const steps: [string, string, string][] = [
   ["01", "Apply", "Send your business details using the form below."],
   [
     "02",
-    "Confirm and pay",
-    "We confirm on WhatsApp. You pay the setup fee, which includes your first month of Pro.",
+    "Pay securely",
+    "Pay the setup fee online. It includes your first month of Pro.",
   ],
   [
     "03",
     "We set up your store",
-    "We upload your products, configure your storefront and set up WhatsApp ordering.",
+    "Our team contacts you on WhatsApp, then uploads your products, configures your storefront and sets up WhatsApp ordering.",
   ],
   [
     "04",
@@ -35,14 +35,15 @@ const steps: [string, string, string][] = [
 ];
 
 export default function SetupPage({ prices }: { prices: SetupPackage[] }) {
+  // The API lists active setup packages; there is one. Fall back to the published fee if it can't be reached.
   const setupPackage = prices[0];
-  const packageCode = setupPackage.packageCode;
-  const fee = naira(setupPackage.amount);
+  const packageCode = setupPackage?.packageCode ?? "";
+  const fee = naira(setupPackage?.amount ?? SETUP_FEE);
 
   const faqs: [string, string][] = [
     [
       "What do I pay, and when?",
-      `One payment to start: the setup fee of ${fee}, which includes your first month of Pro. You pay it after we confirm your details on WhatsApp. From month 2, Pro is billed monthly, quarterly or yearly, as you choose. Nothing is charged when you apply.`,
+      `One payment: the setup fee of ${fee}, which includes your first month of Pro. You pay it online straight after sending your details. From month 2, Pro is billed monthly, quarterly or yearly, as you choose.`,
     ],
     [
       "Is there more than one setup plan?",
@@ -313,8 +314,8 @@ export default function SetupPage({ prices }: { prices: SetupPackage[] }) {
               </span>
             </h2>
             <p className="lead">
-              Takes a few minutes. Our team reviews your request and contacts
-              you on WhatsApp before you pay.
+              Takes a few minutes. After you send your details, you pay securely
+              online and our team contacts you on WhatsApp to start your setup.
             </p>
             <div className="pg-card pg-card--dark" style={{ gap: 12 }}>
               <span
@@ -350,24 +351,7 @@ export default function SetupPage({ prices }: { prices: SetupPackage[] }) {
               <span style={{ fontSize: 13.5, color: "var(--lime)" }}>
                 Includes everything above and your first month of Pro
               </span>
-              {/* <span
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  gap: 12,
-                  paddingTop: 12,
-                  borderTop:
-                    "1px dashed color-mix(in srgb, var(--on-dark) 18%, transparent)",
-                  fontSize: 14.5,
-                }}
-              >
-                <span style={{ color: "var(--on-dark-muted)" }}>
-                  Then Pro from month 2
-                </span>
-                <b>
-                  {monthly.amount} {monthly.per}
-                </b>
-              </span> */}
+
               <span
                 style={{
                   fontSize: 13.5,
@@ -375,12 +359,13 @@ export default function SetupPage({ prices }: { prices: SetupPackage[] }) {
                   color: "var(--on-dark-muted)",
                 }}
               >
-                Nothing is charged now. You pay after we confirm your details.
+                You pay online after sending your details. Payment is confirmed
+                on the next page.
               </span>
             </div>
           </div>
           <div style={{ flex: "1.5 1 520px", minWidth: 0 }}>
-            <SetupForm packageCode={packageCode} />
+            <SetupForm packageCode={packageCode} fee={fee} />
           </div>
         </div>
       </section>

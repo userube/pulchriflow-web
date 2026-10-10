@@ -1,17 +1,21 @@
 "use client";
 
-import { Check, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { browserApiEndpoint } from "@/lib/config";
 import {
   SETUP_SUPPORT_EMAIL,
   businessTypes,
+  isValidEmail,
+  normalizePhone,
+  type SetupCheckout,
   type SetupRequest,
 } from "@/lib/setup";
 
 export type Billing = { id: string; name: string; price: string };
 
-type Status = "idle" | "sending" | "sent" | "emailed";
+type Status = "idle" | "sending" | "redirecting";
+type FieldErrors = Partial<Record<"email" | "whatsappPhone", string>>;
 
 function choiceStyle(on: boolean) {
   return {
@@ -25,113 +29,113 @@ function choiceStyle(on: boolean) {
   };
 }
 
-/** Collects a setup request and sends it to the API; falls back to a prepared email if the API can't be reached. */
-export default function SetupForm({ packageCode }: { packageCode: string }) {
+async function errorMessage(res: Response) {
+  try {
+    const body = (await res.json()) as { message?: string; error?: string };
+    return body.message || body.error || "";
+  } catch {
+    return "";
+  }
+}
+
+/** Collects a setup request, creates it through the API and sends the merchant to checkout to pay. */
+export default function SetupForm({
+  packageCode,
+  fee,
+}: {
+  packageCode: string;
+  fee: string;
+}) {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [photos, setPhotos] = useState(true);
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (status === "sending") return;
+    if (status !== "idle") return;
     const form = e.currentTarget;
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      setError("Please fill in the highlighted fields.");
-      return;
-    }
     const data = new FormData(form);
     const value = (key: string) => String(data.get(key) || "").trim();
-    const notes = value("notes");
+
+    const email = value("email");
+    const phone = normalizePhone(value("whatsappPhone"));
+    const errors: FieldErrors = {};
+    if (email && !isValidEmail(email))
+      errors.email = "Enter a valid email address";
+    if (value("whatsappPhone") && !phone)
+      errors.whatsappPhone = "Enter a real phone number, like +2348012345678.";
+    setFieldErrors(errors);
+    if (!form.checkValidity() || Object.keys(errors).length) {
+      form.reportValidity();
+      setError("Please fix the highlighted fields.");
+      return;
+    }
+    if (!packageCode) {
+      setError(
+        `Setup isn't available right now. Please try again later or email ${SETUP_SUPPORT_EMAIL}.`,
+      );
+      return;
+    }
+
     const request: SetupRequest = {
       fullName: value("fullName"),
       businessName: value("businessName"),
-      email: value("email"),
-      whatsappPhone: value("whatsappPhone"),
+      email,
+      whatsappPhone: phone as string,
       businessType: value("businessType"),
       preferredSlug: value("preferredSlug")
         .toLowerCase()
         .replace(/[^a-z0-9-]+/g, "-")
         .replace(/^-+|-+$/g, ""),
       hasProductPhotos: photos,
-      notes,
+      notes: value("notes"),
       packageCode,
     };
     setError("");
     setStatus("sending");
 
     const endpoint = browserApiEndpoint("/api/public/setup-requests");
-    if (endpoint) {
-      try {
-        const res = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(request),
-        });
-        if (res.ok) {
-          setStatus("sent");
-          return;
-        }
-      } catch {
-        // Network or CORS failure: fall back to email below.
-      }
+    if (!endpoint) {
+      setStatus("idle");
+      setError(
+        `We couldn't start your setup. Please try again or email ${SETUP_SUPPORT_EMAIL}.`,
+      );
+      return;
     }
-    const body = [
-      `Full name: ${request.fullName}`,
-      `Business: ${request.businessName}`,
-      `What they sell: ${request.businessType}`,
-      `Preferred shop link: ${request.preferredSlug}.pulchriflow.com`,
-      `WhatsApp: ${request.whatsappPhone}`,
-      `Email: ${request.email}`,
-      `Has product photos: ${request.hasProductPhotos ? "Yes" : "Not yet"}`,
-      `Package: ${request.packageCode}`,
-      "",
-      request.notes,
-    ].join("\n");
-    setStatus("emailed");
-    window.location.href = `mailto:${SETUP_SUPPORT_EMAIL}?subject=${encodeURIComponent(`Setup request · ${request.businessName}`)}&body=${encodeURIComponent(body)}`;
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(request),
+      });
+      if (!res.ok) {
+        setStatus("idle");
+        setError(
+          (await errorMessage(res)) ||
+            "We couldn't start your setup. Please check your details and try again.",
+        );
+        return;
+      }
+      const checkout = (await res.json()) as SetupCheckout;
+      if (!checkout.checkoutUrl) {
+        setStatus("idle");
+        setError(
+          `Your request was saved but we couldn't open payment. Reference: ${checkout.setupReference}. Please email ${SETUP_SUPPORT_EMAIL}.`,
+        );
+        return;
+      }
+      setStatus("redirecting");
+      window.location.assign(checkout.checkoutUrl);
+    } catch {
+      setStatus("idle");
+      setError(
+        `We couldn't reach PulchriFlow. Check your connection and try again, or email ${SETUP_SUPPORT_EMAIL}.`,
+      );
+    }
   }
 
-  if (status === "sent") {
-    return (
-      <div
-        role="status"
-        className="pg-card"
-        style={{ padding: 36, gap: 16, alignItems: "flex-start" }}
-      >
-        <span
-          className="pg-check pg-check--mint"
-          style={{ width: 56, height: 56 }}
-        >
-          <Check size={26} strokeWidth={2.8} aria-hidden="true" />
-        </span>
-        <h3
-          style={{
-            margin: 0,
-            fontSize: 30,
-            fontWeight: 500,
-            letterSpacing: "-0.03em",
-          }}
-        >
-          Thanks, we&apos;ve got <span className="serif">your details.</span>
-        </h3>
-        <p className="pg-body" style={{ fontSize: 16 }}>
-          Our team will contact you on WhatsApp to confirm your setup before you
-          pay.
-        </p>
-        <button
-          type="button"
-          className="btn btn--forest"
-          style={{ border: "none" }}
-          onClick={() => setStatus("idle")}
-        >
-          Send another business
-        </button>
-      </div>
-    );
-  }
-
-  const sending = status === "sending";
+  const busy = status !== "idle";
 
   return (
     <form
@@ -347,7 +351,28 @@ export default function SetupForm({ packageCode }: { packageCode: string }) {
               autoComplete="tel"
               required
               placeholder="+234 801 234 5678"
+              aria-invalid={!!fieldErrors.whatsappPhone}
+              aria-describedby={
+                fieldErrors.whatsappPhone ? "phone-error" : undefined
+              }
+              onInput={() =>
+                fieldErrors.whatsappPhone &&
+                setFieldErrors((f) => ({ ...f, whatsappPhone: undefined }))
+              }
+              style={
+                fieldErrors.whatsappPhone
+                  ? { borderColor: "#9b2c1c" }
+                  : undefined
+              }
             />
+            {fieldErrors.whatsappPhone && (
+              <span
+                id="phone-error"
+                style={{ fontWeight: 400, color: "#9b2c1c" }}
+              >
+                {fieldErrors.whatsappPhone}
+              </span>
+            )}
           </label>
           <label className="pg-field">
             Email
@@ -357,7 +382,22 @@ export default function SetupForm({ packageCode }: { packageCode: string }) {
               autoComplete="email"
               required
               placeholder="jane@example.com"
+              aria-invalid={!!fieldErrors.email}
+              aria-describedby={fieldErrors.email ? "email-error" : undefined}
+              onInput={() =>
+                fieldErrors.email &&
+                setFieldErrors((f) => ({ ...f, email: undefined }))
+              }
+              style={fieldErrors.email ? { borderColor: "#9b2c1c" } : undefined}
             />
+            {fieldErrors.email && (
+              <span
+                id="email-error"
+                style={{ fontWeight: 400, color: "#9b2c1c" }}
+              >
+                {fieldErrors.email}
+              </span>
+            )}
           </label>
         </div>
         <label className="pg-field">
@@ -390,21 +430,25 @@ export default function SetupForm({ packageCode }: { packageCode: string }) {
           style={{ color: error ? "#9b2c1c" : "var(--muted)" }}
         >
           {error ||
-            (status === "emailed"
-              ? `Your email app should open with your details. If it doesn't, write to ${SETUP_SUPPORT_EMAIL}.`
-              : "No payment yet. We confirm everything on WhatsApp first.")}
+            (status === "redirecting"
+              ? "Taking you to secure payment…"
+              : `Next, you'll pay ${fee} securely. It includes your first month of Pro.`)}
         </p>
         <button
           type="submit"
           className="btn btn--forest btn--lg"
-          disabled={sending}
-          aria-busy={sending}
-          style={{ border: "none", opacity: sending ? 0.75 : 1 }}
+          disabled={busy}
+          aria-busy={busy}
+          style={{ border: "none", opacity: busy ? 0.75 : 1 }}
         >
-          {sending && (
+          {busy && (
             <Loader2 size={16} className="animate-spin" aria-hidden="true" />
           )}
-          {sending ? "Sending…" : "Send my details"}
+          {status === "sending"
+            ? "Sending…"
+            : status === "redirecting"
+              ? "Opening payment…"
+              : "Continue to payment"}
         </button>
       </div>
     </form>
